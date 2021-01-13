@@ -27,7 +27,8 @@ const products = [
 //Event listener's and updation of cart
 for (let i=0; i < carts.length; i++){
     carts[i].addEventListener('click', () => {
-        cartNumbers(products[i], size[i].value);
+        setItems(products[i], size[i].value);  // adding selected Product description to local storage
+        cartNumbers(products[i]);
         totalCost(products[i]);
     })
 }
@@ -42,7 +43,7 @@ function onLoadcartNumbers(){
 }
 
 //local storage functions
-function cartNumbers (product, size){
+function cartNumbers (product){
 
     let productNumbers = localStorage.getItem('cartNumbers');
     productNumbers = parseInt(productNumbers);
@@ -57,8 +58,6 @@ function cartNumbers (product, size){
 
     console.log("Passing product tag:"+ product.tag);
 
-    setItems(product, size);  // adding selected Product description to local storage
-
 }
 
 //cart items updation
@@ -68,48 +67,45 @@ function setItems(product, size){
     
 
     prd = {
-        name : 'Esprit Ruffle Shirt',
+        name : '',
         tag : '',
         price : 0,
         inCart : 0,
         size : ''
     }
 
-    product_temp = product; // created a temporary product dict
-
-    size = size[size.length - 1].toUpperCase(); // Actual size is available in last index of string
+    size = size.slice(5, size.length).toUpperCase(); // Actual size is available after a space in string
     
 
     prd.size = size; // assigning user selected size 
+
+    tag = product.tag + '-' + size;
     
     
     if(cartItems != null) {
-        
-        console.log("Selected id:"+ product_temp.tag);
-        if(cartItems[product_temp.tag] == undefined){
 
-            prd.name = product_temp.name;
-            prd.tag = product_temp.tag;
-            prd.price = product_temp.price;
+        if(cartItems[tag] == undefined){
 
+            prd.name = product.name;
+            prd.tag = tag;
+            prd.price = product.price;
             cartItems = {
                 ...cartItems,
-                [prd.tag] : prd
+                [tag] : prd
             }
          }
         
-         cartItems[prd.tag].inCart += 1;
+         cartItems[tag].inCart += 1;
         
         }
 
         else{
             
-        //product_temp.tag = product_temp.tag + '-' + size; // unique product tag for different sizes 
-        tag = product_temp.tag + '-' + size;   
-        console.log('Not available in LocalStorage' + product_temp.tag);
-        prd.name = product_temp.name;
-        prd.tag = product_temp.tag;
-        prd.price = product_temp.price;
+        //product_temp.tag = product_temp.tag + '-' + size; // unique product tag for different sizes    
+        console.log('LocalStorage Not available' + tag);
+        prd.name = product.name;
+        prd.tag = tag;
+        prd.price = product.price;
 
         prd.inCart = 1;
         cartItems = {
@@ -123,11 +119,7 @@ function setItems(product, size){
 
 //updation of product price 
 function totalCost(product) {
-    //console.log("The product price is", product.price);
     let cartCost = localStorage.getItem('totalCost');
-
-    //console.log("My cartCost is", cartCost);
-    //console.log(typeof cartCost);
 
     if (cartCost != null){
         cartCost = parseInt(cartCost);

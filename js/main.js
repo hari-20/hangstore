@@ -125,7 +125,7 @@ function displayCart(){
                                         <img src="images/${item.tag}.jpg" alt="IMG">
                                     </div>
                                 </td>
-                                <td class="column-2">${item.name}</td>
+                                <td class="column-2"> ${item.name} </td>
                                 <td class="column-3">&#8377; ${ item.price}</td>
                                  
                                 <td class="column-4">
@@ -146,7 +146,7 @@ function displayCart(){
                                     
                                 </td>
                                 <td class="column-6" >
-                                <div class='del delete-prdt'> <i class="zmdi zmdi-delete zmdi-hc-2x"></i></div> 
+                                <div class='del delete-prdt'> <i class="zmdi zmdi-delete zmdi-hc-2x" ></i></div> 
                                 </td>
                                 
                                 

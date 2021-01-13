@@ -1988,7 +1988,20 @@ width: 60px;
  display: flex;
  justify-content: center;
  cursor: pointer; 
-} 
+}
+
+.table-shopping-cart .prd-name{
+  font-family: Poppins-Bold;
+  color: #555;
+  font-weight: lighter;
+}
+
+.table-shopping-cart .prd-prop{
+font-size: 12px;
+}
+
+
+
 /* 
 .prd-sum {
   position: relative;
@@ -2133,7 +2146,7 @@ width: 60px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
-    text-align:center;
+    text-align:left;
   }
   .table-shopping-cart td.column-3{
     width: 25%;

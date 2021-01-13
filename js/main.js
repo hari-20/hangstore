@@ -2,27 +2,32 @@
 
 let carts = document.querySelectorAll('.add-cart');
 
+// Selected Size list
+
+let size = document.querySelectorAll('#size');
 
 //products listed in site
-let products = [
+const products = [
     {
         name : 'Esprit Ruffle Shirt',
         tag : 'EspritRuffleShirt',
         price : 18,
-        inCart : 0
+        inCart : 0,
+        size : ['S','M','L','XL']
     },
     {
         name : 'Herschel supply',
         tag : 'Herschelsupply',
         price : 35,
-        inCart : 0
+        inCart : 0,
+        size : ['S','M','L','XL']
     }
 ]
 
 //Event listener's and updation of cart
 for (let i=0; i < carts.length; i++){
     carts[i].addEventListener('click', () => {
-        cartNumbers(products[i]);
+        cartNumbers(products[i], size[i].value);
         totalCost(products[i]);
     })
 }
@@ -37,10 +42,9 @@ function onLoadcartNumbers(){
 }
 
 //local storage functions
-function cartNumbers (product){
+function cartNumbers (product, size){
 
     let productNumbers = localStorage.getItem('cartNumbers');
-
     productNumbers = parseInt(productNumbers);
 
     if(productNumbers){
@@ -51,27 +55,65 @@ function cartNumbers (product){
         $("div.icon-header-noti").attr("data-notify","1");
     }
 
-    setItems(product);
+    console.log("Passing product tag:"+ product.tag);
+
+    setItems(product, size);  // adding selected Product description to local storage
 
 }
 
 //cart items updation
-function setItems(product){
+function setItems(product, size){
     let cartItems = localStorage.getItem('productsInCart');
     cartItems = JSON.parse(cartItems);
-    if(cartItems != null) {
+    
 
-        if(cartItems[product.tag] == undefined){
+    prd = {
+        name : 'Esprit Ruffle Shirt',
+        tag : '',
+        price : 0,
+        inCart : 0,
+        size : ''
+    }
+
+    product_temp = product; // created a temporary product dict
+
+    size = size[size.length - 1].toUpperCase(); // Actual size is available in last index of string
+    
+
+    prd.size = size; // assigning user selected size 
+    
+    
+    if(cartItems != null) {
+        
+        console.log("Selected id:"+ product_temp.tag);
+        if(cartItems[product_temp.tag] == undefined){
+
+            prd.name = product_temp.name;
+            prd.tag = product_temp.tag;
+            prd.price = product_temp.price;
+
             cartItems = {
                 ...cartItems,
-                [product.tag] : product
+                [prd.tag] : prd
             }
+         }
+        
+         cartItems[prd.tag].inCart += 1;
+        
         }
-        cartItems[product.tag].inCart += 1;
-        }else{
-        product.inCart = 1;
+
+        else{
+            
+        //product_temp.tag = product_temp.tag + '-' + size; // unique product tag for different sizes 
+        tag = product_temp.tag + '-' + size;   
+        console.log('Not available in LocalStorage' + product_temp.tag);
+        prd.name = product_temp.name;
+        prd.tag = product_temp.tag;
+        prd.price = product_temp.price;
+
+        prd.inCart = 1;
         cartItems = {
-            [product.tag]: product
+            [tag]: prd
         }
     }
     
@@ -125,7 +167,7 @@ function displayCart(){
                                         <img src="images/${item.tag}.jpg" alt="IMG">
                                     </div>
                                 </td>
-                                <td class="column-2"> ${item.name} </td>
+                                <td class="column-2"> <div class="prd-name">${item.name}</div>  <div class="prd-prop">size: ${item.size} | colour: white </div></td>
                                 <td class="column-3">&#8377; ${ item.price}</td>
                                  
                                 <td class="column-4">
@@ -613,6 +655,7 @@ displayCart();
     
     /*==================================================================
     [ Show modal1 ]*/
+
     $('.js-show-modal1').on('click',function(e){
         e.preventDefault();
         $('.js-modal1').addClass('show-modal1');
@@ -632,7 +675,7 @@ displayCart();
         $('.js-modal2').removeClass('show-modal2');
     });
 
-    /*[ Show modal2 ]*/
+    /*[ Show modal3 ]*/
     $('.js-show-modal3').on('click',function(e){
         e.preventDefault();
         $('.js-modal3').addClass('show-modal3');

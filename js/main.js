@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = '/vendor/sweetalert/sweetalert.min.js';
+document.head.appendChild(imported);
+
 //Cart Function
 
 let carts = document.querySelectorAll('.add-cart');
@@ -13,14 +17,20 @@ const products = [
         tag : 'EspritRuffleShirt',
         price : 18,
         inCart : 0,
-        size : ['S','M','L','XL']
+        size : ['S','M','L','XL'],
+        colour: 'White',
+        description: "Women's Round Neck T-shirt",
+        category: 'women'
     },
     {
         name : 'Herschel supply',
         tag : 'Herschelsupply',
         price : 35,
         inCart : 0,
-        size : ['S','M','L','XL']
+        size : ['S','M','L','XL'],
+        colour: 'Half-White',
+        description: "Women's Casual shirt",
+        category: 'women'
     }
 ]
 
@@ -372,6 +382,257 @@ $(document).ready( function cart_qty_change(){
  });
 
 
+
+ //looping products in main page
+ $(document).ready( function productsInPage(){
+     let productdisp = document.getElementById('ProductPage');
+     productdisp.innerHTML = ``;
+     for (let i=0; i<products.length; i++){
+
+        //Listing the available products
+
+         productdisp.innerHTML+=
+         `
+         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${products[i].category}">
+         <!-- Block2 -->
+         <div class="block2">
+             <div class="block2-pic hov-img0">
+                 <img src="images/${products[i].tag}.jpg" alt="IMG-PRODUCT">
+
+                 <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal${i+1}">
+                     Quick View
+                 </a>
+             </div>
+
+             <div class="block2-txt flex-w flex-t p-t-14">
+                 <div class="block2-txt-child1 flex-col-l ">
+                     <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                         ${products[i].name}
+                     </a>
+
+                     <span class="stext-105 cl3">
+                     &#8377; ${products[i].price}
+                     </span>
+                 </div>
+
+                 <div class="block2-txt-child2 flex-r p-t-3">
+                     <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                         <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                         <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                     </a>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+         `;
+
+        //Listing the product overview overlay
+
+//         document.body.innerHTML += `
+        
+//         <!-- Modal  -->
+// <div class="wrap-modal js-modal${i+1} p-t-60 p-b-20">
+// 	<div class="overlay-modal js-hide-modal${i+1}"></div>
+
+// 	<div class="container">
+// 		<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+// 			<button class="how-pos3 hov3 trans-04 js-hide-modal${i+1}">
+// 				<img src="images/icons/icon-close.png" alt="CLOSE">
+// 			</button>
+
+// 			<div class="row">
+// 				<div class="col-md-6 col-lg-7 p-b-30">
+// 					<div class="p-l-25 p-r-30 p-lr-0-lg">
+// 						<div class="wrap-slick3 flex-sb flex-w">
+// 							<div class="wrap-slick3-dots"></div>
+// 							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+// 							<div class="slick3 gallery-lb">
+// 								<div class="item-slick3" data-thumb="images/product-02.jpg">
+// 									<div class="wrap-pic-w pos-relative">
+// 										<img src="images/${products[i].tag}.jpg" alt="IMG-PRODUCT">
+
+// 										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/${products[i].tag}.jpg">
+// 											<i class="fa fa-expand"></i>
+// 										</a>
+// 									</div>
+// 								</div>
+
+// 								<div class="item-slick3" data-thumb="images/product-02.jpg">
+// 									<div class="wrap-pic-w pos-relative">
+// 										<img src="images/${products[i].tag}.jpg" alt="IMG-PRODUCT">
+
+// 										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/${products[i].tag}.jpg">
+// 											<i class="fa fa-expand"></i>
+// 										</a>
+// 									</div>
+// 								</div>
+
+// 								<div class="item-slick3" data-thumb="images/${products[i].tag}.jpg">
+// 									<div class="wrap-pic-w pos-relative">
+// 										<img src="images/${products[i].tag}.jpg" alt="IMG-PRODUCT">
+
+// 										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/${products[i].tag}.jpg">
+// 											<i class="fa fa-expand"></i>
+// 										</a>
+// 									</div>
+// 								</div>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>
+				
+// 				<div class="col-md-6 col-lg-5 p-b-30">
+// 					<div class="p-r-50 p-t-5 p-lr-0-lg">
+// 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+//                         ${products[i].name}
+// 						</h4>
+
+// 						<span class="mtext-106 cl2">
+//                         &#8377; ${products[i].price}
+// 						</span>
+
+// 						<p class="stext-102 cl3 p-t-23">
+//                         ${products[i].description}
+// 						</p>
+						
+// 						<!--  -->
+// 						<div class="p-t-33">
+// 							<div class="flex-w flex-r-m p-b-10">
+// 								<div class="size-203 flex-c-m respon6">
+// 									Size
+// 								</div>
+
+// 								<div class="size-204 respon6-next">
+// 									<div class="rs1-select2 bor8 bg0">
+// 										<select class="js-select2" name="time" id="size">
+// 											<!-- <option>Choose an option</option> -->
+// 											<option>Size ${products[i].size[0]}</option>
+// 											<option>Size ${products[i].size[1]}</option>
+// 											<option>Size ${products[i].size[2]}</option>
+// 											<option>Size ${products[i].size[3]}</option>
+// 										</select>
+// 										<div class="dropDownSelect2"></div>
+// 									</div>
+// 								</div>
+// 							</div>
+
+// 							<div class="flex-w flex-r-m p-b-10">
+// 								<div class="size-203 flex-c-m respon6">
+// 									Color
+// 								</div>
+
+// 								<div class="size-204 respon6-next">
+//                                 ${products[i].colour}
+
+// 								</div>
+// 							</div>
+
+// 							<div class="flex-w flex-r-m p-b-10">
+// 								<div class="size-204 flex-w flex-m respon6-next">
+// 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+// 										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+// 											<i class="fs-16 zmdi zmdi-minus"></i>
+// 										</div>
+
+// 										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+
+// 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+// 											<i class="fs-16 zmdi zmdi-plus"></i>
+// 										</div>
+// 									</div>
+
+// 									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail add-cart">
+// 										Add to cart
+// 									</button>
+// 								</div>
+// 							</div>	
+// 						</div>
+
+// 						<!--  -->
+// 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+// 							<div class="flex-m bor9 p-r-10 m-r-11">
+// 								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+// 									<i class="zmdi zmdi-favorite"></i>
+// 								</a>
+// 							</div>
+
+// 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+// 								<i class="fa fa-facebook"></i>
+// 							</a>
+
+// 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+// 								<i class="fa fa-twitter"></i>
+// 							</a>
+
+// 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+// 								<i class="fa fa-google-plus"></i>
+// 							</a>
+// 						</div>
+// 					</div>
+// 				</div>
+// 			</div>
+// 		</div>
+// 	</div>
+// </div>
+
+//         `;
+
+
+
+     }
+    
+
+
+
+});
+
+
+$(document).ready( function(){
+ /* Add to Wishlist*/
+
+ $('.js-addwish-b2').on('click', function(e){
+    console.log("Clicked");
+    e.preventDefault();
+});
+
+$('.js-addwish-b2').each(function(){
+    var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+    $(this).on('click', function(){
+        swal(nameProduct, "is added to wishlist !", "success");
+
+        $(this).addClass('js-addedwish-b2');
+        $(this).off('click');
+    });
+});
+
+$('.js-addwish-detail').each(function(){
+    var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+    $(this).on('click', function(){
+        swal(nameProduct, "is added to wishlist !", "success");
+
+        $(this).addClass('js-addedwish-detail');
+        $(this).off('click');
+    });
+});
+
+/*---------------------------------------------*/
+
+$('.js-addcart-detail').each(function(){
+    var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+    $(this).on('click', function(){
+        swal(nameProduct, "is added to cart !", "success");
+    });
+});
+
+});
+
+
+
+
+
 // On PageReload Cart Numbers Should be Updated
 onLoadcartNumbers();
 displayCart();
@@ -648,14 +909,20 @@ displayCart();
     /*==================================================================
     [ Show modal1 ]*/
 
-    $('.js-show-modal1').on('click',function(e){
+    for (let i=0; i<products.length; i++){
+    
+    let str = String(i+1);
+    
+    $('.js-show-modal'+str).on('click',function(e){
         e.preventDefault();
-        $('.js-modal1').addClass('show-modal1');
+        $('.js-modal'+str).addClass('show-modal');
     });
 
-    $('.js-hide-modal1').on('click',function(){
-        $('.js-modal1').removeClass('show-modal1');
+    $('.js-hide-modal'+str).on('click',function(){
+        $('.js-modal'+str).removeClass('show-modal');
     });
+    
+}
 
     /*[ Show modal2 ]*/
     $('.js-show-modal2').on('click',function(e){
@@ -676,5 +943,8 @@ displayCart();
     $('.js-hide-modal3').on('click',function(){
         $('.js-modal3').removeClass('show-modal3');
     });
+
+   
+
 
 })(jQuery);

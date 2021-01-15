@@ -135,9 +135,9 @@ function displayCart(){
         productContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
            
-            
-
-
+                
+            let index = String(item.tag).length - String(item.size).length - 1;
+            let img_tag = String(item.tag).slice(0, index);
            
             //Item's Updating in Cart Page
             productContainer.innerHTML += 
@@ -145,7 +145,7 @@ function displayCart(){
 								<tr class="table_row">
                                 <td class="column-1">
                                     <div class="how-itemcart1 product">
-                                        <img src="images/${item.tag}.jpg" alt="IMG">
+                                        <img src="images/${img_tag}.jpg" alt="IMG">
                                     </div>
                                 </td>
                                 <td class="column-2"> <div class="prd-name">${item.name}</div>  <div class="prd-prop">size: ${item.size} | colour: white </div></td>
@@ -169,7 +169,7 @@ function displayCart(){
                                     
                                 </td>
                                 <td class="column-6" >
-                                <div class='del delete-prdt'> <i class="zmdi zmdi-delete zmdi-hc-2x" ></i></div> 
+                                <div class='del delete-prdt' onclick="removeCartItem(this,'${String(item.tag)}');" > <i class="zmdi zmdi-delete zmdi-hc-2x" ></i></div> 
                                 </td>
                                 
                                 
@@ -222,6 +222,7 @@ function alter_totalCostandQty(price, isAdd){
 $('.js-show-cart').on('click', function() {
     //console.log("Clicked!!!");
     //window.alert("Clicked");
+    let cartCost = parseInt(localStorage.getItem('totalCost'));
     let cartItems = localStorage.getItem("productsInCart");
     cartItems = JSON.parse(cartItems);
     let menucartContainer = document.getElementById("right-menu-cart");
@@ -232,11 +233,16 @@ $('.js-show-cart').on('click', function() {
         Object.values(cartItems).map(item => {
         
         //Item's Updating in Right Menu Cart
+        let img_tag = String(item.tag);
+        let size = String(item.size);    
+        let index = img_tag.length - size.length - 1;
+        img_tag = img_tag.slice(0, index);
+        //console.log("Image name: "+ img_tag);
         menucartContainer.innerHTML += 
         `
         <li class="header-cart-item flex-w flex-t m-b-12">
         <div class="header-cart-item-img">
-            <img src="images/${item.tag}.jpg" alt="IMG">
+            <img src="images/${img_tag}.jpg" alt="IMG">
         </div>
 
         <div class="header-cart-item-txt p-t-8">
@@ -252,6 +258,8 @@ $('.js-show-cart').on('click', function() {
         `;
     });
     }
+
+    $('.header-cart-total').html('Total: &#8377;'+cartCost);
 
 
 });
@@ -311,65 +319,40 @@ $(document).ready( function cart_qty_change(){
     }
  });
 
- $(document).ready( function delete_product(){
-     let del_prdt = document.querySelectorAll('.delete-prdt');
-     let prd_div = document.querySelectorAll('.table_row');
-     //localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-     let num_of_items = del_prdt.length;     
-     let itr = parseInt(0);
+// Delete items in cart
 
-     while (num_of_items>0){
-                
-            del_prdt[itr].addEventListener('click', () => {
-                
-                let price = parseInt();
-                let qty = parseInt();
-                let cartItems = localStorage.getItem("productsInCart");
-                cartItems = JSON.parse(cartItems);
-                cart_values = Object.values(cartItems);
+ function removeCartItem(e,itemId){
+    let price = parseInt();
+    let qty = parseInt();
+    let cartItems = localStorage.getItem("productsInCart");
+    cartItems = JSON.parse(cartItems);
 
+    price = cartItems[itemId].price;
+    qty = cartItems[itemId].inCart;
+    
+    delete cartItems[itemId];
 
-                //console.log("cart_length"+ cart_values.length);
-                if( cart_values.length === 1){
-                    price = cart_values[0].price;
-                    qty = cart_values[0].inCart;
-                    //console.log(price,qty);
-                    delete cartItems[cart_values[0].tag];
-                    
-                }
-                else{
-                    price = cart_values[itr].price;
-                    qty = cart_values[itr].inCart;
-                    delete cartItems[cart_values[itr].tag];
-                }
-                let totalCost = localStorage.getItem("totalCost");
-                totalCost -= parseInt(price) * parseInt(qty);
-                document.getElementById("sub-total").innerHTML = "&#8377; "+ totalCost;
+    let totalCost = localStorage.getItem("totalCost");
+    totalCost -= parseInt(price) * parseInt(qty);
+    document.getElementById("sub-total").innerHTML = "&#8377; "+ totalCost;
 
-                let cartNumbers = localStorage.getItem("cartNumbers");
-                cartNumbers -= parseInt(qty); 
-                
-                $('div.icon-header-noti').attr("data-notify", cartNumbers);
-                localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-                localStorage.setItem("totalCost", JSON.stringify (totalCost));
-                localStorage.setItem("cartNumbers", JSON.stringify (cartNumbers));
+    let cartNumbers = localStorage.getItem("cartNumbers");
+    cartNumbers -= parseInt(qty); 
+    
+    $('div.icon-header-noti').attr("data-notify", cartNumbers);
+    localStorage.setItem("productsInCart", JSON.stringify (cartItems));
+    localStorage.setItem("totalCost", JSON.stringify (totalCost));
+    localStorage.setItem("cartNumbers", JSON.stringify (cartNumbers));
 
-                prd_div[itr].remove();
-                num_of_items--;
-                //displayCart();
+    $(e).closest('.table_row').remove();
 
-            });
-
-            itr++;
-    }
-
-
- });
+    
+ }
 
 
 
-//cart_qty_change();
-//cartplus();
+
+
 
 (function ($) {
     "use strict";

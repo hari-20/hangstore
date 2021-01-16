@@ -34,6 +34,9 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="css/signup-reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/signup-style.css"> <!-- Resource style -->
+<!--===============================================================================================-->
 </head>
 <body class="animsition">
 	
@@ -45,15 +48,19 @@
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
-						Free shipping for standard order over Rs.1000
+						Free shipping for standard order over Rs. 1000
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m trans-04 p-lr-25 js-signin-modal-trigger" data-signin="login">
+							Sign In
+						</a>
+
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							Help & FAQs
 						</a>
 
-						<a href="#myModal_btn" data-toggle="modal" data-target="#myModal_btn" class="flex-c-m trans-04 p-lr-25">
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
 					</div>
@@ -149,7 +156,7 @@
 			<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
-						Free shipping for standard order over $100
+						Free shipping for standard order over Rs. 1000
 					</div>
 				</li>
 
@@ -163,13 +170,10 @@
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
+						<a href="#" class="flex-c-m trans-04 p-lr-10 js-signin-modal-trigger" data-signin="login">
+							Sign In
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
 					</div>
 				</li>
 			</ul>
@@ -177,11 +181,11 @@
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
+					<!-- <ul class="sub-menu-m">
 						<li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
+					</ul> -->
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
@@ -1855,96 +1859,96 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <!-- Modal 3 -->
 
-<!-- sign up Modal 
-<div class="modal fade" id="myModal_btn" tabindex="-1" role="dialog" aria-labelledby="myModal_btn" aria-hidden="true">
-	<div class="agilemodal-dialog modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Register Now</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body pt-3 pb-5 px-sm-5">
-				<div class="row">
-					<div class="col-md-6">
-						<form action="#" method="post">
-							<div class="form-group">
-								<label for="recipient-name1" class="col-form-label">Your Name</label>
-								<input type="text" class="form-control" placeholder=" " name="Name" id="recipient-name1" required="">
-							</div>
-							<div class="form-group">
-								<label for="recipient-email" class="col-form-label">Email</label>
-								<input type="email" class="form-control" placeholder=" " name="Email" id="recipient-email" required="">
-							</div>
-							<div class="form-group">
-								<label for="password1" class="col-form-label">Password</label>
-								<input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
-							</div>
-							<div class="form-group">
-								<label for="password2" class="col-form-label">Confirm Password</label>
-								<input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
-							</div>
-							<div class="sub-w3l">
-								<div class="sub-agile">
-									<input type="checkbox" id="brand2" value="">
-									<label for="brand2" class="mb-3">
-										<span></span>I Accept to the Terms & Conditions</label>
-								</div>
-							</div>
-							<div class="right-w3l">
-								<input type="submit" class="form-control" value="Register">
-							</div>
-						</form>
-						<p class="text-center mt-3">Already a member?
-							<a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark login_btn">
-								Login Now</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
--->
-<!-- //signup modal -->
-<!-- signin Modal 
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1" aria-hidden="true">
-	<div class="agilemodal-dialog modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body  pt-3 pb-5 px-sm-5">
-				<div class="row">
-					<div class="col-md-6 align-self-center">
-						<img src="images/p3.png" class="img-fluid" alt="login_image" />
-					</div>
-					<div class="col-md-6">
-						<form action="#" method="post">
-							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Your Name</label>
-								<input type="text" class="form-control" placeholder=" " name="Name" id="recipient-name" required="">
-							</div>
-							<div class="form-group">
-								<label class="col-form-label">Password</label>
-								<input type="password" class="form-control" placeholder=" " name="Password" required="">
-							</div>
-							<div class="right-w3l">
-								<input type="submit" class="form-control" value="Login">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
--->
-<!-- signin Modal -->
+ <!--signup modal -->
+ <div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
+	<div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
+		<ul class="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger">
+			<li><a href="#0" data-signin="login" data-type="login">Sign in</a></li>
+			<li><a href="#0" data-signin="signup" data-type="signup">New account</a></li>
+		</ul>
+
+		<div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
+			<form class="cd-signin-modal__form">
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signin-email">E-mail</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-email" type="email" placeholder="E-mail">
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signin-password">Password</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" type="text"  placeholder="Password">
+					<a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<input type="checkbox" id="remember-me" checked class="cd-signin-modal__input ">
+					<label for="remember-me">Remember me</label>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="Login">
+				</p>
+			</form>
+			
+			<p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">Forgot your password?</a></p>
+		</div> <!-- cd-signin-modal__block -->
+
+		<div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
+			<form class="cd-signin-modal__form">
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" type="text" placeholder="Username">
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" type="email" placeholder="E-mail">
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" type="text"  placeholder="Password">
+					<a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<input type="checkbox" id="accept-terms" class="cd-signin-modal__input ">
+					<label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Create account">
+				</p>
+			</form>
+		</div> <!-- cd-signin-modal__block -->
+
+		<div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
+			<p class="cd-signin-modal__message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+
+			<form class="cd-signin-modal__form">
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="reset-email">E-mail</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="reset-email" type="email" placeholder="E-mail">
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Reset password">
+				</p>
+			</form>
+
+			<p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="login">Back to log-in</a></p>
+		</div> <!-- cd-signin-modal__block -->
+		
+		<a href="#0" class="cd-signin-modal__close js-close"> <i class="zmdi zmdi-close"></i> </a>
+	</div> <!-- cd-signin-modal__container -->
+</div> <!-- cd-signin-modal -->
+<!--signup modal-->
 <script src="js/product-list.js"></script>
 <script>
 	
@@ -2100,13 +2104,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+										<div class="btn-num-product-down btn-down cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1" readonly style="cursor:default">
 
-										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+										<div class="btn-num-product-up btn-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>

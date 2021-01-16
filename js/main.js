@@ -9,17 +9,20 @@ $(document).ready( function addCart(){
 let carts = document.querySelectorAll('.add-cart');
 // Selected Size list
 let size = document.querySelectorAll('#size');
+// Selected Product quantity
+let qty = document.querySelectorAll('.num-product');
 
 //Event listener's and updation of cart
 for (let i=0; i < carts.length; i++){
     carts[i].addEventListener('click', () => {
-        setItems(products[i], size[i].value);  // adding selected Product description to local storage
-        cartNumbers(products[i]);
-        totalCost(products[i]);
+        setItems(products[i], size[i].value, Number(qty[i].value));  // adding selected Product description to local storage
+        //cartNumbers(products[i]);
+        totalCost(products[i], Number(qty[i].value));
     })
 }
 
 });
+
 
 
 function onLoadcartNumbers(){
@@ -32,7 +35,7 @@ function onLoadcartNumbers(){
 }
 
 //local storage functions
-function cartNumbers (product){
+function cartNumbers (){
 
     let productNumbers = localStorage.getItem('cartNumbers');
     productNumbers = parseInt(productNumbers);
@@ -40,17 +43,17 @@ function cartNumbers (product){
     if(productNumbers){
         localStorage.setItem('cartNumbers', productNumbers + 1);
         $('div.icon-header-noti').attr("data-notify", productNumbers + 1);
+
     } else {
         localStorage.setItem('cartNumbers', 1);
         $("div.icon-header-noti").attr("data-notify","1");
     }
 
-    //console.log("Passing product tag:"+ product.tag);
 
 }
 
 //cart items updation
-function setItems(product, size){
+function setItems(product, size, qty){
     let cartItems = localStorage.getItem('productsInCart');
     cartItems = JSON.parse(cartItems);
     
@@ -82,9 +85,12 @@ function setItems(product, size){
                 ...cartItems,
                 [tag] : prd
             }
+
+            cartNumbers();
+
          }
         
-         cartItems[tag].inCart += 1;
+         cartItems[tag].inCart += qty;
         
         }
 
@@ -92,14 +98,16 @@ function setItems(product, size){
             
         //product_temp.tag = product_temp.tag + '-' + size; // unique product tag for different sizes    
         //console.log('LocalStorage Not available' + tag);
+        cartNumbers();
         prd.name = product.name;
         prd.tag = tag;
         prd.price = product.price;
 
-        prd.inCart = 1;
+        prd.inCart = qty;
         cartItems = {
             [tag]: prd
         }
+        
     }
     
     localStorage.setItem("productsInCart", JSON.stringify 
@@ -107,14 +115,14 @@ function setItems(product, size){
 }
 
 //updation of product price 
-function totalCost(product) {
+function totalCost(product, qty) {
     let cartCost = localStorage.getItem('totalCost');
 
     if (cartCost != null){
         cartCost = parseInt(cartCost);
-        localStorage.setItem("totalCost", cartCost + product.price );
+        localStorage.setItem("totalCost", cartCost + (product.price * qty));
     } else{
-        localStorage.setItem("totalCost", product.price);
+        localStorage.setItem("totalCost", product.price * qty);
     }
 
     
@@ -190,30 +198,30 @@ function displayCart(){
 onLoadcartNumbers();
 displayCart();
 
-function alter_totalCostandQty(price, isAdd){
+function alter_totalCost(price, isAdd){
     let cartCost = parseInt(localStorage.getItem('totalCost'));
-    let cartQty = parseInt(localStorage.getItem('cartNumbers'));
+    //let cartQty = parseInt(localStorage.getItem('cartNumbers'));
 
     if (isAdd){
         totalPrice = cartCost + price;
         document.getElementById("sub-total").innerHTML = "&#8377; "+ totalPrice;
         
-        cartQty += 1
-        $('div.icon-header-noti').attr("data-notify", cartQty);
+        // cartQty += 1
+        // $('div.icon-header-noti').attr("data-notify", cartQty);
         
         localStorage.setItem("totalCost",  totalPrice);
-        localStorage.setItem("cartNumbers",  cartQty);
+        //localStorage.setItem("cartNumbers",  cartQty);
         
     }
     else{
         totalPrice = cartCost - price;
         document.getElementById("sub-total").innerHTML = "&#8377; "+ totalPrice;
         
-        cartQty -= 1
-        $('div.icon-header-noti').attr("data-notify", cartQty);
+        //cartQty -= 1
+        //$('div.icon-header-noti').attr("data-notify", cartQty);
         
         localStorage.setItem("totalCost",  totalPrice);
-        localStorage.setItem("cartNumbers",  cartQty);
+        //localStorage.setItem("cartNumbers",  cartQty);
     }
     
 }  
@@ -265,7 +273,7 @@ $('.js-show-cart').on('click', function() {
 });
 
 
-
+// On qty change on product in cart
 
 $(document).ready( function cart_qty_change(){
 
@@ -308,7 +316,7 @@ $(document).ready( function cart_qty_change(){
                 
                 cartItems[cart_values[i].tag]['inCart'] += 1;
                 localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-                alter_totalCostandQty(cart_values[i].price,isAdd=true);
+                alter_totalCost(cart_values[i].price,isAdd=true);
            
             }   
             
@@ -337,7 +345,7 @@ $(document).ready( function cart_qty_change(){
     document.getElementById("sub-total").innerHTML = "&#8377; "+ totalCost;
 
     let cartNumbers = localStorage.getItem("cartNumbers");
-    cartNumbers -= parseInt(qty); 
+    cartNumbers -= 1; 
     
     $('div.icon-header-noti').attr("data-notify", cartNumbers);
     localStorage.setItem("productsInCart", JSON.stringify (cartItems));
@@ -568,16 +576,15 @@ $(document).ready( function cart_qty_change(){
     });
 
     /*==================================================================
-    // [ +/- num product ]*/
-    // $('.btn-num-product-down').on('click', function(){
-    //     var numProduct = Number($(this).next().val());
-    //     if(numProduct > 0) $(this).next().val(numProduct - 1);
-    // });
-
-    // $('.btn-num-product-up').on('click', function(){
-    //     var numProduct = Number($(this).prev().val());
-    //     $(this).prev().val(numProduct + 1);
-    // });
+     [ +/- num product ]*/
+     $('.btn-down').on('click', function(){
+         var numProduct = Number($(this).next().val());
+         if(numProduct > 1) $(this).next().val(numProduct - 1);
+     });
+     $('.btn-up').on('click', function(){
+         var numProduct = Number($(this).prev().val());
+         $(this).prev().val(numProduct + 1);
+     });
 
     /*==================================================================
     [ Rating ]*/
@@ -639,14 +646,14 @@ $(document).ready( function cart_qty_change(){
     
     } });
 
-    /*[ Show modal2 ]*/
-    // $('.js-show-modal2').on('click',function(e){
+    // /*[ Show modal2 ]*/
+    // $('.js-show-modal1').on('click',function(e){
     //     e.preventDefault();
-    //     $('.js-modal2').addClass('show-modal2');
+    //     $('.js-modal1').addClass('show-modal1');
     // });
 
-    // $('.js-hide-modal2').on('click',function(){
-    //     $('.js-modal2').removeClass('show-modal2');
+    // $('.js-hide-modal1').on('click',function(){
+    //     $('.js-modal1').removeClass('show-modal1');
     // });
 
     /*[ Show modal3 ]*/
@@ -711,6 +718,142 @@ $(document).ready( function cart_qty_change(){
 
     //     });
    
+    //Login and SignUp modal Overlay
+
+    //Login/Signup modal window 
+	function ModalSignin( element ) {
+		this.element = element;
+		this.blocks = this.element.getElementsByClassName('js-signin-modal-block');
+		this.switchers = this.element.getElementsByClassName('js-signin-modal-switcher')[0].getElementsByTagName('a'); 
+		this.triggers = document.getElementsByClassName('js-signin-modal-trigger');
+		this.hidePassword = this.element.getElementsByClassName('js-hide-password');
+		this.init();
+	};
+
+	ModalSignin.prototype.init = function() {
+		var self = this;
+		//open modal/switch form
+		for(var i =0; i < this.triggers.length; i++) {
+			(function(i){
+				self.triggers[i].addEventListener('click', function(event){
+					if( event.target.hasAttribute('data-signin') ) {
+						event.preventDefault();
+						self.showSigninForm(event.target.getAttribute('data-signin'));
+					}
+				});
+			})(i);
+		}
+
+		//close modal
+		this.element.addEventListener('click', function(event){
+			if( hasClass(event.target, 'js-signin-modal') || hasClass(event.target, 'js-close') ) {
+				event.preventDefault();
+				removeClass(self.element, 'cd-signin-modal--is-visible');
+			}
+		});
+		//close modal when clicking the esc keyboard button
+		document.addEventListener('keydown', function(event){
+			(event.which=='27') && removeClass(self.element, 'cd-signin-modal--is-visible');
+		});
+
+		//hide/show password
+		for(var i =0; i < this.hidePassword.length; i++) {
+			(function(i){
+				self.hidePassword[i].addEventListener('click', function(event){
+					self.togglePassword(self.hidePassword[i]);
+				});
+			})(i);
+		} 
+
+		//IMPORTANT - REMOVE THIS - it's just to show/hide error messages in the demo
+		this.blocks[0].getElementsByTagName('form')[0].addEventListener('submit', function(event){
+			event.preventDefault();
+			self.toggleError(document.getElementById('signin-email'), true);
+		});
+		this.blocks[1].getElementsByTagName('form')[0].addEventListener('submit', function(event){
+			event.preventDefault();
+			self.toggleError(document.getElementById('signup-username'), true);
+		});
+	};
+
+	ModalSignin.prototype.togglePassword = function(target) {
+		var password = target.previousElementSibling;
+		( 'password' == password.getAttribute('type') ) ? password.setAttribute('type', 'text') : password.setAttribute('type', 'password');
+		target.textContent = ( 'Hide' == target.textContent ) ? 'Show' : 'Hide';
+		putCursorAtEnd(password);
+	}
+
+	ModalSignin.prototype.showSigninForm = function(type) {
+		// show modal if not visible
+		!hasClass(this.element, 'cd-signin-modal--is-visible') && addClass(this.element, 'cd-signin-modal--is-visible');
+		// show selected form
+		for( var i=0; i < this.blocks.length; i++ ) {
+			this.blocks[i].getAttribute('data-type') == type ? addClass(this.blocks[i], 'cd-signin-modal__block--is-selected') : removeClass(this.blocks[i], 'cd-signin-modal__block--is-selected');
+		}
+		//update switcher appearance
+		var switcherType = (type == 'signup') ? 'signup' : 'login';
+		for( var i=0; i < this.switchers.length; i++ ) {
+			this.switchers[i].getAttribute('data-type') == switcherType ? addClass(this.switchers[i], 'cd-selected') : removeClass(this.switchers[i], 'cd-selected');
+		} 
+	};
+
+	ModalSignin.prototype.toggleError = function(input, bool) {
+		// used to show error messages in the form
+		toggleClass(input, 'cd-signin-modal__input--has-error', bool);
+		toggleClass(input.nextElementSibling, 'cd-signin-modal__error--is-visible', bool);
+	}
+
+	var signinModal = document.getElementsByClassName("js-signin-modal")[0];
+	if( signinModal ) {
+		new ModalSignin(signinModal);
+	}
+
+	// toggle main navigation on mobile
+	var mainNav = document.getElementsByClassName('js-main-nav')[0];
+	if(mainNav) {
+		mainNav.addEventListener('click', function(event){
+			if( hasClass(event.target, 'js-main-nav') ){
+				var navList = mainNav.getElementsByTagName('ul')[0];
+				toggleClass(navList, 'cd-main-nav__list--is-visible', !hasClass(navList, 'cd-main-nav__list--is-visible'));
+			} 
+		});
+	}
+	
+	//class manipulations - needed if classList is not supported
+	function hasClass(el, className) {
+	  	if (el.classList) return el.classList.contains(className);
+	  	else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+	}
+	function addClass(el, className) {
+		var classList = className.split(' ');
+	 	if (el.classList) el.classList.add(classList[0]);
+	 	else if (!hasClass(el, classList[0])) el.className += " " + classList[0];
+	 	if (classList.length > 1) addClass(el, classList.slice(1).join(' '));
+	}
+	function removeClass(el, className) {
+		var classList = className.split(' ');
+	  	if (el.classList) el.classList.remove(classList[0]);	
+	  	else if(hasClass(el, classList[0])) {
+	  		var reg = new RegExp('(\\s|^)' + classList[0] + '(\\s|$)');
+	  		el.className=el.className.replace(reg, ' ');
+	  	}
+	  	if (classList.length > 1) removeClass(el, classList.slice(1).join(' '));
+	}
+	function toggleClass(el, className, bool) {
+		if(bool) addClass(el, className);
+		else removeClass(el, className);
+	}
+
+	//credits http://css-tricks.com/snippets/jquery/move-cursor-to-end-of-textarea-or-input/
+	function putCursorAtEnd(el) {
+    	if (el.setSelectionRange) {
+      		var len = el.value.length * 2;
+      		el.focus();
+      		el.setSelectionRange(len, len);
+    	} else {
+      		el.value = el.value;
+    	}
+	};
 
 
 })(jQuery);

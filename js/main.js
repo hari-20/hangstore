@@ -1,3 +1,4 @@
+
 // var script1 = document.createElement('script');
 // script1.src = 'vendor/sweetalert/sweetalert.min.js';
 // document.body.appendChild(script1);
@@ -12,7 +13,8 @@ let size = document.querySelectorAll('#size');
 // Selected Product quantity
 let qty = document.querySelectorAll('.num-product');
 
-//Event listener's and updation of cart
+//Event listener's and updation of cart 
+
 for (let i=0; i < carts.length; i++){
     carts[i].addEventListener('click', () => {
         setItems(products[i], size[i].value, Number(qty[i].value));  // adding selected Product description to local storage
@@ -299,7 +301,7 @@ $(document).ready( function cart_qty_change(){
                  prd_sum[i].innerHTML = '&#8377; ' + total ;
                  cartItems[cart_values[i].tag]['inCart'] -= 1;              
                  localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-                 alter_totalCostandQty(cart_values[i].price,isAdd=false);                       
+                 alter_totalCost(cart_values[i].price,isAdd=false);                       
                 }
              //console.log('clicked - minus' + cart_values[i].name);
 
@@ -767,12 +769,32 @@ $(document).ready( function cart_qty_change(){
 
 		//IMPORTANT - REMOVE THIS - it's just to show/hide error messages in the demo
 		this.blocks[0].getElementsByTagName('form')[0].addEventListener('submit', function(event){
-			event.preventDefault();
-			self.toggleError(document.getElementById('signin-email'), true);
+            event.preventDefault();
+            // let email = document.forms["signin-form"]["email"].value;
+            // let password = document.forms["signin-form"]["password"].value;
+            // let isemailWrong = true;
+            // let ispasswordWrong = true;
+            
+            // var mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+            // if(email.match(mailformat)) isemailWrong = false;
+            // else{ console.log("Email wrong");
+
+            // isemailWrong = true;
+            // document.forms["signin-form"]["email"].focus();
+            // }
+            // if(password == '')   ispasswordEmpty = true;
+            // else ispasswordEmpty = false;
+
+            // self.toggleError(document.getElementById('signin-email'), isemailWrong);
+            //self.toggleError(document.getElementById('signin-password'), ispasswordEmpty);
+
+
+
+    
 		});
 		this.blocks[1].getElementsByTagName('form')[0].addEventListener('submit', function(event){
 			event.preventDefault();
-			self.toggleError(document.getElementById('signup-username'), true);
+			//self.toggleError(document.getElementById('signup-username'), true);
 		});
 	};
 

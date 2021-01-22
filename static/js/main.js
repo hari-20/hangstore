@@ -155,7 +155,7 @@ function displayCart(){
 								<tr class="table_row">
                                 <td class="column-1">
                                     <div class="how-itemcart1 product">
-                                        <img src="images/${img_tag}.jpg" alt="IMG">
+                                        <img src="../static/images/${img_tag}.jpg" alt="IMG">
                                     </div>
                                 </td>
                                 <td class="column-2"> <div class="prd-name">${item.name}</div>  <div class="prd-prop">size: ${item.size} | colour: white </div></td>
@@ -252,7 +252,7 @@ $('.js-show-cart').on('click', function() {
         `
         <li class="header-cart-item flex-w flex-t m-b-12">
         <div class="header-cart-item-img">
-            <img src="images/${img_tag}.jpg" alt="IMG">
+            <img src="../static/images/${img_tag}.jpg" alt="IMG">
         </div>
 
         <div class="header-cart-item-txt p-t-8">

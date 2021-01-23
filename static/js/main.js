@@ -163,20 +163,21 @@ function displayCart(){
                                  
                                 <td class="column-4">
                                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m cart-minus">
+                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m cart-minus" onclick="cart_qty_change(this,'${String(item.tag)}',false);">
                                             <i class="fs-16 zmdi zmdi-minus "></i>
                                         </div>
 
                                         <input class="mtext-104 cl3 txt-center num-product" type="number" name="product-num" value=${item.inCart} readonly style="cursor: default;">
 
-                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m cart-plus">
+                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m cart-plus" onclick="cart_qty_change(this,'${String(item.tag)}',true);">
                                             <i class="fs-16 zmdi zmdi-plus"></i>
                                         </div>
                                     </div>
                                 </td>
+
                                 <td class="column-5" name='' id='col5' > 
                                     <div name='product-sum' class='prd-sum'> &#8377; ${ item.inCart * item.price}</div>  
-                                    
+            
                                 </td>
                                 <td class="column-6" >
                                 <div class='del delete-prdt' onclick="removeCartItem(this,'${String(item.tag)}');" > <i class="zmdi zmdi-delete zmdi-hc-2x" ></i></div> 
@@ -267,9 +268,11 @@ $('.js-show-cart').on('click', function() {
         </li>
         `;
     });
-    }
 
     $('.header-cart-total').html('Total: &#8377;'+cartCost);
+    }
+
+
 
 
 });
@@ -277,58 +280,42 @@ $('.js-show-cart').on('click', function() {
 
 // On qty change on product in cart
 
-$(document).ready( function cart_qty_change(){
+function cart_qty_change(e,itemId,isAdd){
 
-     let cart_minus = document.querySelectorAll('.cart-minus');
-     let cart_plus = document.querySelectorAll('.cart-plus');
-     let prd_qty = document.getElementsByName('product-num');
-     let prd_sum = document.getElementsByName('product-sum');
      let cartItems = localStorage.getItem('productsInCart');
      cartItems = JSON.parse(cartItems);
 
      if(cartItems){
 
-     cart_values = Object.values(cartItems);
-     //Event listener's and reduction of cart numbers 
-     for (let i=0; i < cart_minus.length; i++){
-         cart_minus[i].addEventListener('click', () => {
-             //console.log("Clicked minus...");
-             let qty = Number (prd_qty[i].value); 
-             if(qty > 1) {
-                 qty -= 1
-                 prd_qty[i].value = qty;
-                 total = Number(cart_values[i].price) * qty;
-                 prd_sum[i].innerHTML = '&#8377; ' + total ;
-                 cartItems[cart_values[i].tag]['inCart'] -= 1;              
-                 localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-                 alter_totalCost(cart_values[i].price,isAdd=false);                       
-                }
-             //console.log('clicked - minus' + cart_values[i].name);
+        let prd_qty;
+        let prd_sum = $(e).parent().parent().next().children();
 
-         });
+        if (isAdd) prd_qty = $(e).prev();
+        else prd_qty = $(e).next();
 
-        //Event listener's and addition of cart numbers
-         cart_plus[i].addEventListener('click', () => {
-            //console.log("Clicked plus...");
-            let qty = Number(prd_qty[i].value);  
-            if(qty > 0){
-                qty += 1;
-                prd_qty[i].value = qty;
-                prd_sum[i].innerHTML = '&#8377; '+ Number(cart_values[i].price) * qty;
-                
-                cartItems[cart_values[i].tag]['inCart'] += 1;
-                localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-                alter_totalCost(cart_values[i].price,isAdd=true);
-           
-            }   
-            
-             // console.log('clicked - plus' + cart_values[i].name);
-              
-         });
-     }
+        let qty = Number (prd_qty.val());
+
+        if(qty > 1 && isAdd==false) {
+            qty -= 1;
+            prd_qty.attr('value', qty);
+            total = Number(cartItems[itemId]['price']) * qty;
+            prd_sum.html('&#8377; ' + total);
+            cartItems[itemId]['inCart'] -= 1;              
+            localStorage.setItem("productsInCart", JSON.stringify (cartItems));
+            alter_totalCost(cartItems[itemId]['price'], isAdd=false);                       
+        }
+        else if(qty >= 1 && isAdd==true){
+            qty += 1;
+            prd_qty.attr('value', qty);
+            total = Number(cartItems[itemId]['price']) * qty;
+            prd_sum.html('&#8377; ' + total);
+            cartItems[itemId]['inCart'] += 1;              
+            localStorage.setItem("productsInCart", JSON.stringify (cartItems));
+            alter_totalCost(cartItems[itemId]['price'], isAdd=true);   
+        }
+
     }
- });
-
+}
 // Delete items in cart
 
  function removeCartItem(e,itemId){
@@ -720,6 +707,8 @@ $(document).ready( function cart_qty_change(){
 
     //     });
    
+
+
     //Login and SignUp modal Overlay
 
     //Login/Signup modal window 
@@ -866,7 +855,6 @@ $(document).ready( function cart_qty_change(){
 		else removeClass(el, className);
 	}
 
-	//credits http://css-tricks.com/snippets/jquery/move-cursor-to-end-of-textarea-or-input/
 	function putCursorAtEnd(el) {
     	if (el.setSelectionRange) {
       		var len = el.value.length * 2;

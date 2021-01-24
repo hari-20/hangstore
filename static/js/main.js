@@ -783,14 +783,15 @@ function cart_qty_change(e,itemId,isAdd){
 		});
 		this.blocks[1].getElementsByTagName('form')[0].addEventListener('submit', function(event){
 			event.preventDefault();
-			//self.toggleError(document.getElementById('signup-username'), true);
+            //self.toggleError(document.getElementById('signup-username'), true);
+            self.showSigninForm('email-verify');
 		});
 	};
 
 	ModalSignin.prototype.togglePassword = function(target) {
-		var password = target.previousElementSibling;
-		( 'password' == password.getAttribute('type') ) ? password.setAttribute('type', 'text') : password.setAttribute('type', 'password');
-		target.textContent = ( 'Hide' == target.textContent ) ? 'Show' : 'Hide';
+        var password = $(target).prev();
+		( 'password' == password.attr('type') ) ? password.attr('type', 'text') : password.attr('type', 'password');
+		target.innerHTML = ( 'Hide' == target.innerHTML ) ? 'Show' : 'Hide';
 		putCursorAtEnd(password);
 	}
 
@@ -819,17 +820,7 @@ function cart_qty_change(e,itemId,isAdd){
 		new ModalSignin(signinModal);
 	}
 
-	// toggle main navigation on mobile
-	var mainNav = document.getElementsByClassName('js-main-nav')[0];
-	if(mainNav) {
-		mainNav.addEventListener('click', function(event){
-			if( hasClass(event.target, 'js-main-nav') ){
-				var navList = mainNav.getElementsByTagName('ul')[0];
-				toggleClass(navList, 'cd-main-nav__list--is-visible', !hasClass(navList, 'cd-main-nav__list--is-visible'));
-			} 
-		});
-	}
-	
+
 	//class manipulations - needed if classList is not supported
 	function hasClass(el, className) {
 	  	if (el.classList) return el.classList.contains(className);

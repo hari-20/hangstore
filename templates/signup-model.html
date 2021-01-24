@@ -22,7 +22,7 @@
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="Login">
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width" name="login-btn" type="submit" value="Login">
 				</p>
 			</form>
 			
@@ -30,28 +30,35 @@
 		</div> <!-- cd-signin-modal__block -->
 
 		<div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
-			<form class="cd-signin-modal__form">
+			<form class="cd-signin-modal__form" name="signup-form">
 				<p class="cd-signin-modal__fieldset">
 					<label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" type="text" placeholder="Username" required>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" name="user-name" id="signup-username" type="text" placeholder="Username" required>
 					<span class="cd-signin-modal__error">Error message here!</span>
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
 					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" type="email" placeholder="E-mail" required>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" name="email" id="signup-email" type="email" placeholder="E-mail" required>
+					<span class="cd-signin-modal__error">Error message here!</span>
+				</p>
+
+				<p class="cd-signin-modal__fieldset">
+					<label class="cd-signin-modal__label cd-signin-modal__label--mob cd-signin-modal__label--image-replace" for="signup-mob">Phone Number</label>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" name="mob-number" id="signup-mob" pattern="[0-9]{10}" type="tel" name="mobile" placeholder="10 digit mob number" required>
 					<span class="cd-signin-modal__error">Error message here!</span>
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
 					<label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" type="password"  placeholder="Password" required>
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" name="password" id="signup-password" pattern="^(?=.*[a-z])(?=.*[0-9]).{6,64}$" type="password"  placeholder="Password" required>
 					<a href="#" class="cd-signin-modal__hide-password js-hide-password">Show</a>
 					<span class="cd-signin-modal__error">Error message here!</span>
+					<p style="color:red; font-size: 13px;">*password should contain min of 8 characters with atleast 1 numerical digit.</p>
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Create account">
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" name="signup-btn" type="submit" value="Create account">
 				</p>
 			</form>
 		</div> <!-- cd-signin-modal__block -->
@@ -75,23 +82,19 @@
 		</div> <!-- cd-signin-modal__block -->
 		
 		<div class="cd-signin-modal__block js-signin-modal-block" data-type="email-verify"> <!-- email verification -->
-			<p class="cd-signin-modal__message" style="margin-top:5%; margin-bottom: 10%;">A verification link has been sent to your mail, please click on that link to verify your account.</p>
-			<br>
-			<!-- <form class="cd-signin-modal__form">
-				<p class="cd-signin-modal__fieldset">
-					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="reset-email">E-mail</label>
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="reset-email" type="email" placeholder="E-mail">
-					<span class="cd-signin-modal__error">Error message here!</span>
-				</p>
-
-				<p class="cd-signin-modal__fieldset">
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Reset password">
-				</p>
-			</form> -->
-
+			<p class="cd-signin-modal__message" id="verify-msg" style="margin-top:5%; padding-bottom:10%;">A verification link has been sent to your mail, please click on that link to verify your account.</p>
+			<a class="cd-signin-modal__message" id="resend-mail" href="#" >Resend email verification link</a>
 			<p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="login">Back to log-in</a></p>
 		</div> <!-- cd-signin-modal__block -->
 
+		<div class="cd-signin-modal__block js-signin-modal-block" data-type="signup-verify"> <!-- email verification -->
+			<p class="cd-signin-modal__message" id="signup-msg" style="margin-top:5%; padding-bottom:10%;">A verification link has been sent to your mail, please click on that link to verify your account.</p>
+			<p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="login">Back to log-in</a></p>
+		</div> <!-- cd-signin-modal__block -->
+
+		<div class="cd-signin-modal__block js-signin-modal-block" data-type="signin-status"> <!-- Signin success -->
+			<p class="cd-signin-modal__message" id="signin-msg" style="margin-top:5%; padding-bottom:10%;">Successfully Signed In!</p>
+		</div> <!-- cd-signin-modal__block -->
 
 		<a href="#0" class="cd-signin-modal__close js-close"> Close </a>
 	</div> <!-- cd-signin-modal__container -->

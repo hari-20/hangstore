@@ -754,37 +754,172 @@ function cart_qty_change(e,itemId,isAdd){
 					self.togglePassword(self.hidePassword[i]);
 				});
 			})(i);
-		} 
+        } 
+        
+
+        function userLogin(email){
+
+            let userState = localStorage.getItem('userState');
+            userState = JSON.parse(userState);
+            if(userState){
+                userState[userid] = email;
+            }
+            else userState = {userid: String(email)};
+
+            localStorage.setItem('userState', JSON.stringify(userState));
+
+        }
+
+
+        function resendEmailverification(email, password){
+
+            $.ajax({
+                url: '/user-resend-verification',
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({email:email, pwd:password}),
+                success: function(response) {
+                    let resp = JSON.parse(JSON.stringify(response));
+                    if(resp.result == "sent"){
+                        $("#verify-msg").html("Verification mail has been sent again, please check your mail!");
+                        $('[name="login-btn"]').attr('disabled',false);
+                        $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else{
+                        $("#verify-msg").html("Invalid email address, please try registering a valid email address!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                },
+                error: function(xhr) {
+                    //Do Something to handle error
+                        $("#verify-msg").html("Something went wrong, please try again!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                }
+            });
+
+        }
 
 		//IMPORTANT - REMOVE THIS - it's just to show/hide error messages in the demo
 		this.blocks[0].getElementsByTagName('form')[0].addEventListener('submit', function(event){
             event.preventDefault();
-            // let email = document.forms["signin-form"]["email"].value;
-            // let password = document.forms["signin-form"]["password"].value;
-            // let isemailWrong = true;
-            // let ispasswordWrong = true;
+            $('[name="login-btn"]').attr('disabled',true);
+            $('[name="login-btn"]').css('cursor','no-drop');
+
+             let email = document.forms["signin-form"]["email"].value;
+             let password = document.forms["signin-form"]["password"].value;
+             let post_url = '/usersignin';
+
+             $('#resend-mail').on('click', function(){
+                    resendEmailverification(email, password);
+             });
+
+             $.ajax({
+                url: post_url,
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({email:email, pwd:password}),
+                success: function(response) {
+                    let resp = JSON.parse(JSON.stringify(response));
+                    if(resp.result == "success"){ 
+
+                        self.showSigninForm('signin-status');
+                        $("#signin-msg").html("Successfully Signed In!");
+
+                        setTimeout(() => { removeClass(self.element, 'cd-signin-modal--is-visible'); }, 2000);
+                
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                         userLogin(email);
+                    }
+                    else if(resp.result == "notverified"){
+                        self.showSigninForm('email-verify');
+                        $("#verify-msg").html("Account not verified, please click on the link sent to your email to verify.");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else if(resp.result == "notfound"){
+
+                         self.showSigninForm('signup-verify');
+                         $("#signup-msg").html("Email or Password incorrect, please enter a correct email/password!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+
+                    }
+    
+                },
+                error: function(xhr) {
+                    //Do Something to handle error
+                    self.showSigninForm('signin-status');
+                        $("#signin-msg").html("Something went wrong, please try again!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                }
+            });
+
             
-            // var mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-            // if(email.match(mailformat)) isemailWrong = false;
-            // else{ console.log("Email wrong");
-
-            // isemailWrong = true;
-            // document.forms["signin-form"]["email"].focus();
-            // }
-            // if(password == '')   ispasswordEmpty = true;
-            // else ispasswordEmpty = false;
-
-            // self.toggleError(document.getElementById('signin-email'), isemailWrong);
-            //self.toggleError(document.getElementById('signin-password'), ispasswordEmpty);
-
-
 
     
 		});
 		this.blocks[1].getElementsByTagName('form')[0].addEventListener('submit', function(event){
 			event.preventDefault();
-            //self.toggleError(document.getElementById('signup-username'), true);
-            self.showSigninForm('email-verify');
+            $('[name="signup-btn"]').attr('disabled',true);
+            $('[name="signup-btn"]').css('cursor','no-drop');
+
+             let email = document.forms["signup-form"]["email"].value;
+             let password = document.forms["signup-form"]["password"].value;
+             let user_name = document.forms["signup-form"]["user-name"].value;
+             let mob_number = document.forms["signup-form"]["mob-number"].value;
+
+             let post_url = '/usersignup';
+
+             $.ajax({
+                url: post_url,
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({email:email, pwd:password, username:user_name, mobile: mob_number}),
+                success: function(response) {
+                    let resp = JSON.parse(JSON.stringify(response));
+                    if(resp.result == "mail sent"){ 
+
+                        self.showSigninForm('email-verify');
+                        $("#verify-msg").html("A verification link has been sent to your email, please click on the link to verify your account.");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else if(resp.result == "notvalid"){
+                        self.showSigninForm('signin-status');
+                        $("#verify-msg").html("Email address not valid, please try registering a valid email address!.");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else if(resp.result == "Account already registered"){
+                        self.showSigninForm('signup-verify');
+                         $("#signup-msg").html("Account already registered, please signin to proceed!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else{
+                        self.showSigninForm('signin-status');
+                        $("#signin-msg").html("Something went wrong, please try again after reloading!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+    
+                },
+                error: function(xhr) {
+                    //Do Something to handle error
+                    self.showSigninForm('signin-status');
+                        $("#signin-msg").html("Something went wrong, please try again!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                }
+            });
+
 		});
 	};
 

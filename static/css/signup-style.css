@@ -75,6 +75,15 @@ x sigin/signup popup
 
 }
 
+#resend-mail{
+  display:block;
+  text-align: center; 
+  width:100%;
+  padding-top: 2%;
+  padding-bottom: 5%;
+  font-size: 15px;
+}
+
 .cd-signin-modal.cd-signin-modal--is-visible {
   visibility: visible;
   opacity: 1;
@@ -196,6 +205,11 @@ x sigin/signup popup
 
 .cd-signin-modal__label.cd-signin-modal__label--email {
   background-image: url("../images/icons/cd-icon-email.svg");
+}
+
+.cd-signin-modal__label.cd-signin-modal__label--mob {
+  background-image: url("../images/icons/smartphone-call.png");
+  opacity: 0.2;
 }
 
 .cd-signin-modal__label.cd-signin-modal__label--password {

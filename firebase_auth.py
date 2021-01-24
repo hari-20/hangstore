@@ -47,6 +47,20 @@ def signin(email, password):
         return False
 
 
+def resend_mail(email, password):
+    try:
+        user = auth.sign_in_with_email_and_password(email, password)
+        # user token expires every 1 hour:
+        user = auth.refresh(user['refreshToken'])
+        verify_mail = auth.send_email_verification(user['idToken'])
+        #print("email verification: ",verify_user)
+        if(verify_mail['kind']!= None):
+            return True
+        else:
+            return "notvalid"
+    except:
+        return "notvalid"
+
 def reset_password(email):
     try:
         user = auth.send_password_reset_email(email)

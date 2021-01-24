@@ -32,7 +32,7 @@ def user_signup():
                 return jsonify({"result":"Account already registered"})
             
             elif(signup_res == "notvalid"):
-                return jsonify({"result":"notverified"})
+                return jsonify({"result":"notvalid"})
         
         except:
             return jsonify({"result":"err"})
@@ -55,6 +55,23 @@ def user_signin():
 
             else:
                 return jsonify({"result":"notfound"})
+
+        except:
+            return jsonify({"result":"err"})
+
+@app.route("/user-resend-verification", methods=['POST'])
+def resend_verification():
+    if request.method == "POST":
+        try:
+            user_data = request.get_json()
+            email = user_data['email']
+            password = user_data['pwd']
+            resend_res = resend_mail(email,password)
+
+            if resend_res == True:
+                return jsonify({"result":"sent"})
+            else:
+                return jsonify({"result":"notvalid"})
 
         except:
             return jsonify({"result":"err"})

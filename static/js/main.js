@@ -757,14 +757,14 @@ function cart_qty_change(e,itemId,isAdd){
         } 
         
 
-        function userLogin(email){
-
+        function userLogin(email,username){
+            console.log("username: ", username);
             let userState = localStorage.getItem('userState');
             userState = JSON.parse(userState);
             if(userState){
-                userState[userid] = email;
+                userState ['user']= {id:String(email), name:String(username)};
             }
-            else userState = {userid: String(email)};
+            else userState = {'user': {id:String(email), name:String(username)} };
 
             localStorage.setItem('userState', JSON.stringify(userState));
 
@@ -802,7 +802,7 @@ function cart_qty_change(e,itemId,isAdd){
 
         }
 
-		//IMPORTANT - REMOVE THIS - it's just to show/hide error messages in the demo
+		//On submit the SignIn Form
 		this.blocks[0].getElementsByTagName('form')[0].addEventListener('submit', function(event){
             event.preventDefault();
             $('[name="login-btn"]').attr('disabled',true);
@@ -833,7 +833,7 @@ function cart_qty_change(e,itemId,isAdd){
                 
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
-                         userLogin(email);
+                         userLogin(email,resp.username);
                     }
                     else if(resp.result == "notverified"){
                         self.showSigninForm('email-verify');
@@ -863,7 +863,9 @@ function cart_qty_change(e,itemId,isAdd){
             
 
     
-		});
+        });
+
+        //On Submitting the SignUp Form
 		this.blocks[1].getElementsByTagName('form')[0].addEventListener('submit', function(event){
 			event.preventDefault();
             $('[name="signup-btn"]').attr('disabled',true);
@@ -905,7 +907,7 @@ function cart_qty_change(e,itemId,isAdd){
                     }
                     else{
                         self.showSigninForm('signin-status');
-                        $("#signin-msg").html("Something went wrong, please try again after reloading!");
+                         $("#signin-msg").html("Something went wrong, please try again after reloading!");
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
                     }

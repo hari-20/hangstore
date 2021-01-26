@@ -12,9 +12,11 @@ firebaseConfig = {
 }
 
 firebase = Firebase(firebaseConfig)
-auth = firebase.auth()
+auth = firebase.auth()  #Firebase authentication
+db = firebase.database()   #Firebase database
 
-def signup(email, password):  
+
+def signup(email, password, u_name, mobile_num): 
     try:
         create_user = auth.create_user_with_email_and_password(email, password)
     except:
@@ -23,14 +25,20 @@ def signup(email, password):
     try:
         # user token expires every 1 hour:
         create_user = auth.refresh(create_user['refreshToken'])
-        verify_mail = auth.send_email_verification(create_user['idToken'])
-        #print("email verification: ",verify_user)
+        
+        verify_mail = auth.send_email_verification(create_user['idToken']) #send email verification
+        user_info = auth.get_account_info(create_user['idToken']) #Fetching Account info for localId
+        
+        uId = user_info['users'][0]['localId'] #localId
+        data = {'email':email, 'username':u_name, 'mobile': str(mobile_num)}
+        results = db.child("customer").child(uId).set(data) #Storing userdata to firebase realtime database
+
         if(verify_mail['kind']!= None):
             return True
         else:
             return "notvalid"
     except:
-        return "notvalid"
+        return "err"
 
 def signin(email, password):
     try:
@@ -40,7 +48,9 @@ def signin(email, password):
         user_info = auth.get_account_info(user['idToken'])
         emailVerified = user_info['users'][0]['emailVerified']
         if emailVerified == True:
-            return True
+            uId = user_info['users'][0]['localId']
+            user_name = db.child("customer").child(uId).child("username").get().val()
+            return user_name
         else:
             return "notverified" 
     except:
@@ -67,3 +77,4 @@ def reset_password(email):
         return True
     except:
         return False
+

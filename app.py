@@ -15,7 +15,8 @@ def products_page():
 @app.route("/cart-page")
 def cart_page():
     return render_template('shoping-cart.html')
-    
+
+# firebase backend API    
 @app.route("/usersignup", methods=['POST'])
 def user_signup():
     if request.method == "POST":
@@ -23,7 +24,9 @@ def user_signup():
             user_data = request.get_json()
             u_id = user_data['email']
             u_pass = user_data['pwd']
-            signup_res = signup(u_id, u_pass) #signup authentication using firebase
+            u_mob = user_data['mobile']
+            u_name = user_data['username']
+            signup_res = signup(u_id, u_pass, u_name, u_mob) #signup authentication using firebase
 
             if(signup_res == True):
                 return jsonify({"result":"mail sent"})
@@ -33,6 +36,9 @@ def user_signup():
             
             elif(signup_res == "notvalid"):
                 return jsonify({"result":"notvalid"})
+
+            else:
+                return jsonify({'result':"err"})
         
         except:
             return jsonify({"result":"err"})
@@ -47,14 +53,14 @@ def user_signin():
             u_pass = user_data['pwd']
             signin_res = signin(u_id, u_pass)
 
-            if signin_res == True:
-                return jsonify({"result":"success"})
+            if signin_res == False:
+                return jsonify({"result":"err"})
 
             elif signin_res == "notverified":
                 return jsonify({"result":"notverified"})
 
-            else:
-                return jsonify({"result":"notfound"})
+            elif signin_res:
+                return jsonify({"result":"success","username":signin_res})
 
         except:
             return jsonify({"result":"err"})
@@ -78,15 +84,30 @@ def resend_verification():
 
 @app.route("/user-password-reset", methods=["POST"])
 def user_password_reset():
-    user_data = request.get_json()
-    email = user_data['email']
-    reset_res = reset_password(email)
+    if request.method == "POST":
+        user_data = request.get_json()
+        email = user_data['email']
+        reset_res = reset_password(email)
 
-    if reset_password:
-        return jsonify({"result":"mail sent"})
+        if reset_res:
+            return jsonify({"result":"mail sent"})
 
-    else:
-        return jsonify({"result":"notfound"})
+        else:
+            return jsonify({"result":"notfound"})
+
+@app.route("/savedata", methods=["POST"])
+def test_store_db():
+    if request.method == "POST":
+        data = request.get_json()
+        results = db.child("customer").push(data)
+
+        return jsonify({"results":results})
+
+@app.route("/retrieve-data", methods=["GET"])
+def get_data():
+    data = db.child("customer").get()
+    print(data.val())
+    return jsonify({"result":data.val()})
 
 
 if __name__ == "__main__":

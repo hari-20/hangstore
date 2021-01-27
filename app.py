@@ -16,6 +16,14 @@ def products_page():
 def cart_page():
     return render_template('shoping-cart.html')
 
+@app.route("/aboutus")
+def about_page():
+    return render_template('about.html')
+
+@app.route("/contactus")
+def contact_page():
+    return render_template('contact.html')
+
 # firebase backend API    
 @app.route("/usersignup", methods=['POST'])
 def user_signup():

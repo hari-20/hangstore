@@ -62,7 +62,7 @@ function setItems(product, size, qty){
 
     prd = {
         name : '',
-        tag : '',
+        id : '',
         price : 0,
         inCart : 0,
         size : ''
@@ -73,41 +73,41 @@ function setItems(product, size, qty){
 
     prd.size = size; // assigning user selected size 
 
-    tag = product.tag + '-' + size;
+    id = product.id + '-' + size;
     
     
     if(cartItems != null) {
 
-        if(cartItems[tag] == undefined){
+        if(cartItems[id] == undefined){
 
             prd.name = product.name;
-            prd.tag = tag;
+            prd.id = id;
             prd.price = product.price;
             cartItems = {
                 ...cartItems,
-                [tag] : prd
+                [id] : prd
             }
 
             cartNumbers();
 
          }
         
-         cartItems[tag].inCart += qty;
+         cartItems[id].inCart += qty;
         
         }
 
         else{
             
-        //product_temp.tag = product_temp.tag + '-' + size; // unique product tag for different sizes    
-        //console.log('LocalStorage Not available' + tag);
+        //product_temp.id = product_temp.id + '-' + size; // unique product id for different sizes    
+        //console.log('LocalStorage Not available' + id);
         cartNumbers();
         prd.name = product.name;
-        prd.tag = tag;
+        prd.id = id;
         prd.price = product.price;
 
         prd.inCart = qty;
         cartItems = {
-            [tag]: prd
+            [id]: prd
         }
         
     }
@@ -146,8 +146,8 @@ function displayCart(){
         Object.values(cartItems).map(item => {
            
                 
-            let index = String(item.tag).length - String(item.size).length - 1;
-            let img_tag = String(item.tag).slice(0, index);
+            let index = String(item.id).length - String(item.size).length - 1;
+            let img_id = String(item.id).slice(0, index);
            
             //Item's Updating in Cart Page
             productContainer.innerHTML += 
@@ -155,7 +155,7 @@ function displayCart(){
 								<tr class="table_row">
                                 <td class="column-1">
                                     <div class="how-itemcart1 product">
-                                        <img src="../static/images/${img_tag}.jpg" alt="IMG">
+                                        <img src="../static/images/${img_id}.jpg" alt="IMG">
                                     </div>
                                 </td>
                                 <td class="column-2"> <div class="prd-name">${item.name}</div>  <div class="prd-prop">size: ${item.size} | colour: white </div></td>
@@ -163,13 +163,13 @@ function displayCart(){
                                  
                                 <td class="column-4">
                                     <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m cart-minus" onclick="cart_qty_change(this,'${String(item.tag)}',false);">
+                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m cart-minus" onclick="cart_qty_change(this,'${String(item.id)}',false);">
                                             <i class="fs-16 zmdi zmdi-minus "></i>
                                         </div>
 
                                         <input class="mtext-104 cl3 txt-center num-product" type="number" name="product-num" value=${item.inCart} readonly style="cursor: default;">
 
-                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m cart-plus" onclick="cart_qty_change(this,'${String(item.tag)}',true);">
+                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m cart-plus" onclick="cart_qty_change(this,'${String(item.id)}',true);">
                                             <i class="fs-16 zmdi zmdi-plus"></i>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@ function displayCart(){
             
                                 </td>
                                 <td class="column-6" >
-                                <div class='del delete-prdt' onclick="removeCartItem(this,'${String(item.tag)}');" > <i class="zmdi zmdi-delete zmdi-hc-2x" ></i></div> 
+                                <div class='del delete-prdt' onclick="removeCartItem(this,'${String(item.id)}');" > <i class="zmdi zmdi-delete zmdi-hc-2x" ></i></div> 
                                 </td>
                                 
                                 
@@ -244,16 +244,16 @@ $('.js-show-cart').on('click', function() {
         Object.values(cartItems).map(item => {
         
         //Item's Updating in Right Menu Cart
-        let img_tag = String(item.tag);
+        let img_id = String(item.id);
         let size = String(item.size);    
-        let index = img_tag.length - size.length - 1;
-        img_tag = img_tag.slice(0, index);
-        //console.log("Image name: "+ img_tag);
+        let index = img_id.length - size.length - 1;
+        img_id = img_id.slice(0, index);
+        //console.log("Image name: "+ img_id);
         menucartContainer.innerHTML += 
         `
         <li class="header-cart-item flex-w flex-t m-b-12">
         <div class="header-cart-item-img">
-            <img src="../static/images/${img_tag}.jpg" alt="IMG">
+            <img src="../static/images/${img_id}.jpg" alt="IMG">
         </div>
 
         <div class="header-cart-item-txt p-t-8">
@@ -758,7 +758,7 @@ function cart_qty_change(e,itemId,isAdd){
         
 
         function userLogin(email,username){
-            console.log("username: ", username);
+            //console.log("username: ", username);
             let userState = localStorage.getItem('userState');
             userState = JSON.parse(userState);
             if(userState){
@@ -833,6 +833,7 @@ function cart_qty_change(e,itemId,isAdd){
                 
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
+
                          userLogin(email,resp.username);
                     }
                     else if(resp.result == "notverified"){
@@ -991,7 +992,22 @@ function cart_qty_change(e,itemId,isAdd){
     	} else {
       		el.value = el.value;
     	}
-	};
+    };
+    
+    $(window).on('load', function () {
+
+        let userState = localStorage.getItem('userState');
+        userState = JSON.parse(userState);
+        if(userState){        
+            
+            $('.signin-out').html('Sign Out');
+            $('.signin-out').removeClass("js-signin-modal-trigger");
+            $('.signin-out').attr('data-target','signout-model-sm');
+
+            console.log("content: ", $('.signin-out').html());
+        }
+
+    });
 
 
 })(jQuery);

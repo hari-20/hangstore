@@ -1,9 +1,10 @@
 const products = [
     {
         name : 'Esprit Ruffle Shirt',
+        id : 'HGWRN001',
         tag : 'EspritRuffleShirt',
         price : 18,
-        inCart : 0,
+        stock : 10,
         size : ['S','M','L','XL'],
         colour: 'White',
         description: "Women's Round Neck T-shirt",
@@ -11,9 +12,10 @@ const products = [
     },
     {
         name : 'Herschel supply',
+        id : 'HGWCS001',
         tag : 'Herschelsupply',
         price : 35,
-        inCart : 0,
+        stock : 10,
         size : ['S','M','L','XL'],
         colour: 'Half-White',
         description: "Women's Casual shirt",

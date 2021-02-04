@@ -706,8 +706,39 @@ function cart_qty_change(e,itemId,isAdd){
     //     });
 
     //     });
-   
+    function signedinCheck() {
 
+        let userState = localStorage.getItem('userState');
+        userState = JSON.parse(userState);
+        if(userState){        
+            
+            $('.signin-out').html('Sign Out');
+            $('.signin-out').attr('data-target','.signout-modal-sm');
+            $('.signin-out').removeClass("js-signin-modal-trigger");
+            $('.js-signin-modal').css('visibility','hidden');
+            $('#signout-body').css('visibility','visible');
+            $('#signout-msg').css('visibility', 'hidden');
+            $('#signout-btn').attr('disabled', false);
+            $('#signout-btn').css('cursor','pointer');
+
+        }
+      
+
+    }
+
+    $('#signout-btn').on('click', function signout(){
+        $(this).attr('disabled', true);
+        $(this).css('cursor','no-drop');
+        $('#signout-body').css('visibility','hidden');
+        $('#signout-msg').css('visibility', 'visible');
+
+        localStorage.removeItem('userState');
+
+        setTimeout(() => { location.reload(); }, 2000);
+        
+    });
+   
+    $(window).on('load', signedinCheck());
 
     //Login and SignUp modal Overlay
 
@@ -835,6 +866,7 @@ function cart_qty_change(e,itemId,isAdd){
                          $('[name="login-btn"]').css('cursor','pointer');
 
                          userLogin(email,resp.username);
+                         signedinCheck();
                     }
                     else if(resp.result == "notverified"){
                         self.showSigninForm('email-verify');
@@ -994,20 +1026,7 @@ function cart_qty_change(e,itemId,isAdd){
     	}
     };
     
-    $(window).on('load', function () {
-
-        let userState = localStorage.getItem('userState');
-        userState = JSON.parse(userState);
-        if(userState){        
-            
-            $('.signin-out').html('Sign Out');
-            $('.signin-out').removeClass("js-signin-modal-trigger");
-            $('.signin-out').attr('data-target','signout-model-sm');
-
-            console.log("content: ", $('.signin-out').html());
-        }
-
-    });
+    
 
 
 })(jQuery);

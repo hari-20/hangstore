@@ -47,6 +47,16 @@ Login/Signup modal window
 }
 
 
+.signout-modal{
+  font-family: poppins-regular;
+  font-size: 13px;
+  padding-top: 10%;
+  z-index: 9000; 
+  background: rgba(29, 29, 29, 0.9);
+}
+
+
+
 /* -------------------------------- 
 
 x sigin/signup popup 

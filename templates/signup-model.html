@@ -22,6 +22,7 @@
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
+					<i class="fa fa-spinner fa-spin icon-loading"></i> 
 					<input class="cd-signin-modal__input cd-signin-modal__input--full-width" name="login-btn" type="submit" value="Login">
 				</p>
 			</form>
@@ -58,6 +59,7 @@
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
+					<i class="fa fa-spinner fa-spin icon-loading"></i> 
 					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" name="signup-btn" type="submit" value="Create account">
 				</p>
 			</form>
@@ -66,15 +68,16 @@
 		<div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
 			<p class="cd-signin-modal__message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
 
-			<form class="cd-signin-modal__form">
+			<form class="cd-signin-modal__form" name="forgot-pass-form">
 				<p class="cd-signin-modal__fieldset">
 					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="reset-email">E-mail</label>
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="reset-email" type="email" placeholder="E-mail">
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" name="email" id="reset-email" type="email" placeholder="E-mail" required>
 					<span class="cd-signin-modal__error">Error message here!</span>
 				</p>
 
 				<p class="cd-signin-modal__fieldset">
-					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Reset password">
+					<i class="fa fa-spinner fa-spin icon-loading"></i> 
+					<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" name="reset-pass-btn" type="submit" value="Reset password">
 				</p>
 			</form>
 

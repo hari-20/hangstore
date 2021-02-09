@@ -47,6 +47,14 @@ Login/Signup modal window
 }
 
 
+.icon-loading{
+  position: absolute;
+  padding: 3.5%;
+  color:#FFF;
+  visibility: hidden;
+}
+
+
 .signout-modal{
   font-family: poppins-regular;
   font-size: 13px;

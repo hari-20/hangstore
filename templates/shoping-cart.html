@@ -47,7 +47,7 @@
 					</div>
 	
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25 js-signin-modal-trigger" data-signin="login">
+						<a href="#" class="flex-c-m trans-04 p-lr-25 js-signin-modal-trigger signin-out" data-signin="login" data-toggle="modal" data-target="">
 							Sign In
 						</a>
 	
@@ -154,7 +154,7 @@
 				<li>
 					<div class="right-top-bar flex-w h-full">
 	
-						<a href="#" class="flex-c-m trans-04 p-lr-10 js-signin-modal-trigger" data-signin="login">
+						<a href="#" class="flex-c-m trans-04 p-lr-10 js-signin-modal-trigger signin-out" data-signin="login" data-toggle="modal" data-target="">
 							Sign In
 						</a>
 	
@@ -511,14 +511,31 @@
 							</div>
 
 							<div class="size-209 p-t-1">
-								<span class="mtext-110 cl2">
+								<span class="mtext-110 cl2" id='cart-total'>
 									&#8377; 0.00
 								</span>
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
+						<div class="flex-w flex-t p-t-10 p-b-20">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Payment Method:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 ">
+									<select class="js-select2" name="payment-opt">
+										<option>Cash On Delivery</option>
+									</select>
+									<div class="dropDownSelect2"></div>
+								</div>
+							</div>
+						</div>
+
+						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer order-btn">
+							Place Your Order
 						</button>
 					</div>
 				</div>

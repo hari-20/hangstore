@@ -64,7 +64,7 @@ function setItems(product, size, qty){
         name : '',
         id : '',
         price : 0,
-        inCart : 0,
+        qty : 0,
         size : ''
     }
 
@@ -92,7 +92,7 @@ function setItems(product, size, qty){
 
          }
         
-         cartItems[id].inCart += qty;
+         cartItems[id].qty += qty;
         
         }
 
@@ -105,7 +105,7 @@ function setItems(product, size, qty){
         prd.id = id;
         prd.price = product.price;
 
-        prd.inCart = qty;
+        prd.qty = qty;
         cartItems = {
             [id]: prd
         }
@@ -140,8 +140,8 @@ function displayCart(){
     //let menucartcontainer = document.getElementById("right-menu-cart");
 
     if (cartItems && productContainer){
-        
         document.getElementById("sub-total").innerHTML = "&#8377; "+ totalPrice;
+        document.getElementById("cart-total").innerHTML = "&#8377; "+ totalPrice;
         productContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
            
@@ -167,7 +167,7 @@ function displayCart(){
                                             <i class="fs-16 zmdi zmdi-minus "></i>
                                         </div>
 
-                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="product-num" value=${item.inCart} readonly style="cursor: default;">
+                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="product-num" value=${item.qty} readonly style="cursor: default;">
 
                                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m cart-plus" onclick="cart_qty_change(this,'${String(item.id)}',true);">
                                             <i class="fs-16 zmdi zmdi-plus"></i>
@@ -176,7 +176,7 @@ function displayCart(){
                                 </td>
 
                                 <td class="column-5" name='' id='col5' > 
-                                    <div name='product-sum' class='prd-sum'> &#8377; ${ item.inCart * item.price}</div>  
+                                    <div name='product-sum' class='prd-sum'> &#8377; ${ item.qty * item.price}</div>  
             
                                 </td>
                                 <td class="column-6" >
@@ -208,7 +208,7 @@ function alter_totalCost(price, isAdd){
     if (isAdd){
         totalPrice = cartCost + price;
         document.getElementById("sub-total").innerHTML = "&#8377; "+ totalPrice;
-        
+        document.getElementById("cart-total").innerHTML = "&#8377; "+ totalPrice;
         // cartQty += 1
         // $('div.icon-header-noti').attr("data-notify", cartQty);
         
@@ -219,6 +219,7 @@ function alter_totalCost(price, isAdd){
     else{
         totalPrice = cartCost - price;
         document.getElementById("sub-total").innerHTML = "&#8377; "+ totalPrice;
+        document.getElementById("cart-total").innerHTML = "&#8377; "+ totalPrice;
         
         //cartQty -= 1
         //$('div.icon-header-noti').attr("data-notify", cartQty);
@@ -262,7 +263,7 @@ $('.js-show-cart').on('click', function() {
             </a>
 
             <span class="header-cart-item-info">
-            ${item.inCart} x ${item.price}
+            ${item.qty} x ${item.price}
             </span>
         </div>
         </li>
@@ -300,7 +301,7 @@ function cart_qty_change(e,itemId,isAdd){
             prd_qty.attr('value', qty);
             total = Number(cartItems[itemId]['price']) * qty;
             prd_sum.html('&#8377; ' + total);
-            cartItems[itemId]['inCart'] -= 1;              
+            cartItems[itemId]['qty'] -= 1;              
             localStorage.setItem("productsInCart", JSON.stringify (cartItems));
             alter_totalCost(cartItems[itemId]['price'], isAdd=false);                       
         }
@@ -309,7 +310,7 @@ function cart_qty_change(e,itemId,isAdd){
             prd_qty.attr('value', qty);
             total = Number(cartItems[itemId]['price']) * qty;
             prd_sum.html('&#8377; ' + total);
-            cartItems[itemId]['inCart'] += 1;              
+            cartItems[itemId]['qty'] += 1;              
             localStorage.setItem("productsInCart", JSON.stringify (cartItems));
             alter_totalCost(cartItems[itemId]['price'], isAdd=true);   
         }
@@ -325,13 +326,14 @@ function cart_qty_change(e,itemId,isAdd){
     cartItems = JSON.parse(cartItems);
 
     price = cartItems[itemId].price;
-    qty = cartItems[itemId].inCart;
+    qty = cartItems[itemId].qty;
     
     delete cartItems[itemId];
 
     let totalCost = localStorage.getItem("totalCost");
     totalCost -= parseInt(price) * parseInt(qty);
     document.getElementById("sub-total").innerHTML = "&#8377; "+ totalCost;
+    document.getElementById("cart-total").innerHTML = "&#8377; "+ totalCost;
 
     let cartNumbers = localStorage.getItem("cartNumbers");
     cartNumbers -= 1; 
@@ -836,6 +838,7 @@ function cart_qty_change(e,itemId,isAdd){
 		//On submit the SignIn Form
 		this.blocks[0].getElementsByTagName('form')[0].addEventListener('submit', function(event){
             event.preventDefault();
+            $('.icon-loading').css('visibility','visible');
             $('[name="login-btn"]').attr('disabled',true);
             $('[name="login-btn"]').css('cursor','no-drop');
 
@@ -882,6 +885,8 @@ function cart_qty_change(e,itemId,isAdd){
                          $('[name="login-btn"]').css('cursor','pointer');
 
                     }
+
+                    $('.icon-loading').css('visibility','hidden');
     
                 },
                 error: function(xhr) {
@@ -890,6 +895,7 @@ function cart_qty_change(e,itemId,isAdd){
                         $("#signin-msg").html("Something went wrong, please try again!");
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
+                         $('.icon-loading').css('visibility','hidden');
                 }
             });
 
@@ -900,7 +906,8 @@ function cart_qty_change(e,itemId,isAdd){
 
         //On Submitting the SignUp Form
 		this.blocks[1].getElementsByTagName('form')[0].addEventListener('submit', function(event){
-			event.preventDefault();
+            event.preventDefault();
+            $('.icon-loading').css('visibility','visible');
             $('[name="signup-btn"]').attr('disabled',true);
             $('[name="signup-btn"]').css('cursor','no-drop');
 
@@ -944,7 +951,7 @@ function cart_qty_change(e,itemId,isAdd){
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
                     }
-    
+                    $('.icon-loading').css('visibility','hidden');
                 },
                 error: function(xhr) {
                     //Do Something to handle error
@@ -952,6 +959,58 @@ function cart_qty_change(e,itemId,isAdd){
                         $("#signin-msg").html("Something went wrong, please try again!");
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
+                         $('.icon-loading').css('visibility','hidden');
+                }
+            });
+
+        });
+        
+        //On Submitting the Reset Password Form
+		this.blocks[2].getElementsByTagName('form')[0].addEventListener('submit', function(event){
+            event.preventDefault();
+            $('.icon-loading').css('visibility','visible');
+            $('[name="reset-pass-btn"]').attr('disabled',true);
+            $('[name="reset-pass-btn"]').css('cursor','no-drop');
+
+             let email = document.forms["forgot-pass-form"]["email"].value;
+             let post_url = '/user-password-reset';
+
+             $.ajax({
+                url: post_url,
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({email:email}),
+                success: function(response) {
+                    let resp = JSON.parse(JSON.stringify(response));
+                    if(resp.result == "mail sent"){ 
+
+                        self.showSigninForm('signup-verify');
+                        $("#signup-msg").html("A password reset link has been sent to your email, please click on the link to reset your account password.");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else if(resp.result == "notfound"){
+                        self.showSigninForm('signin-status');
+                        $("#signin-msg").html("Email address not found, please try registering a valid email address!.");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    else{
+                        self.showSigninForm('signin-status');
+                         $("#signin-msg").html("Something went wrong, please try again after reloading!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                    }
+                    $('.icon-loading').css('visibility','hidden');
+                },
+                error: function(xhr) {
+                    //Do Something to handle error
+                    self.showSigninForm('signin-status');
+                        $("#signin-msg").html("Something went wrong, please try again!");
+                         $('[name="login-btn"]').attr('disabled',false);
+                         $('[name="login-btn"]').css('cursor','pointer');
+                         $('.icon-loading').css('visibility','hidden');
                 }
             });
 

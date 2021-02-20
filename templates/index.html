@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="../static/images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="../static/images/icons/favicon 1.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -60,7 +60,7 @@
 							Help & FAQs
 						</a>
 	
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="#" class="flex-c-m trans-04 p-lr-25 user-name">
 							My Account
 						</a>
 					</div>
@@ -72,7 +72,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="/" class="logo">
-						<img src="../static/images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="../static/images/icons/logo-03.png" alt="IMG-LOGO">
 					</a>
 	
 					<!-- Menu desktop -->
@@ -85,7 +85,11 @@
 							<li class="">
 								<a href="/product-page">Shop</a>
 							</li>
-	
+
+							<li class="">
+								<a href="/yourorders-page" >Your Orders</a>
+							</li>
+
 							<li class=""> 
 								<a href="/cart-page">Cart</a>
 							</li>
@@ -120,7 +124,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="/"><img src="../static/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="/"><img src="../static/images/icons/logo-03.png" alt="IMG-LOGO"></a>
 			</div>
 	
 			<!-- Icon header -->
@@ -167,7 +171,7 @@
 							Help & FAQs
 						</a>
 	
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<a href="#" class="flex-c-m p-lr-10 trans-04 user-name">
 							My Account
 						</a>
 	
@@ -195,7 +199,11 @@
 				<li>
 					<a href="/cart-page" >Cart</a>
 				</li>
-	
+
+				<li>
+					<a href="/yourorders-page" >Your Orders</a>
+				</li>
+
 				<li>
 					<a href="/aboutus">About</a>
 				</li>
@@ -325,7 +333,7 @@
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
 								<span class="ltext-101 cl2 respon2">
-									Women Collection 2018
+									Women Collection 2021
 								</span>
 							</div>
 								
@@ -373,7 +381,7 @@
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
 								<span class="ltext-101 cl2 respon2">
-									Men Collection 2018
+									Men Collection 2021
 								</span>
 							</div>
 								
@@ -397,7 +405,7 @@
 
 
 	<!-- Banner -->
-	<div class="sec-banner bg0 p-t-80 p-b-50">
+	<div class="sec-banner bg0 p-t-80 p-b-20">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
@@ -412,7 +420,7 @@
 								</span>
 
 								<span class="block1-info stext-102 trans-04">
-									Spring 2018
+									Spring 2021
 								</span>
 							</div>
 
@@ -437,7 +445,7 @@
 								</span>
 
 								<span class="block1-info stext-102 trans-04">
-									Spring 2018
+									Spring 2021
 								</span>
 							</div>
 
@@ -478,7 +486,9 @@
 		</div>
 	</div>
 
-
+<!-- <div>
+	<img class="img-fluid p-b-20" src="../static/images/Tiruppur draw 2.png" style="margin-right: auto; margin-left: auto; display: block;" alt="IMG-BANNER">
+</div> -->
 	<!-- Product -->
 	<section class="bg0 p-t-23 p-b-140">
 		<div class="container">
@@ -1262,8 +1272,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 									Color
 								</div>
 
-								<div class="size-204 respon6-next">
-								${products[i].colour}
+								<div class="size-204 respon6-next bor8 bg0" style="padding:8px;">
+									<span style="font-size:15px; padding-left:12px;">
+								 ${products[i].colour}
+									</span>
 
 								</div>
 							</div>

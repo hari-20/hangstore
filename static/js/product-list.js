@@ -6,7 +6,7 @@ const products = [
         price : 18,
         stock : 10,
         size : ['S','M','L','XL'],
-        colour: 'White',
+        colour: 'white',
         description: "Women's Round Neck T-shirt",
         category: 'women'
     },
@@ -17,7 +17,7 @@ const products = [
         price : 35,
         stock : 10,
         size : ['S','M','L','XL'],
-        colour: 'Half-White',
+        colour: 'half-white',
         description: "Women's Casual shirt",
         category: 'women'
     }

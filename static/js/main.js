@@ -715,6 +715,7 @@ function cart_qty_change(e,itemId,isAdd){
         if(userState){        
             
             $('.signin-out').html('Sign Out');
+            $('.user-name').html('Hi, '+userState['user']['name']);
             $('.signin-out').attr('data-target','.signout-modal-sm');
             $('.signin-out').removeClass("js-signin-modal-trigger");
             $('.js-signin-modal').css('visibility','hidden');
@@ -727,6 +728,17 @@ function cart_qty_change(e,itemId,isAdd){
       
 
     }
+    
+    $('#cart-form').submit (function userStatecheck(event){
+        event.preventDefault();
+        let userStatecheck = localStorage.getItem('userState');
+        window.alert('sucess');
+        if(userStatecheck){
+            
+            console.log("check");
+        //swal(nameProduct, "is added to cart !", "success");
+    }
+    });
 
     $('#signout-btn').on('click', function signout(){
         $(this).attr('disabled', true);
@@ -877,7 +889,7 @@ function cart_qty_change(e,itemId,isAdd){
                          $('[name="login-btn"]').attr('disabled',false);
                          $('[name="login-btn"]').css('cursor','pointer');
                     }
-                    else if(resp.result == "notfound"){
+                    else if(resp.result == "err"){
 
                          self.showSigninForm('signup-verify');
                          $("#signup-msg").html("Email or Password incorrect, please enter a correct email/password!");

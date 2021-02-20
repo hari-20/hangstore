@@ -1995,9 +1995,19 @@ width: 60px;
   font-weight: lighter;
 }
 
+.table-shopping-orders .prd-name{
+  font-family: Poppins-Bold;
+  color: #555;
+  font-weight: lighter;
+}
+
 .table-shopping-cart .prd-prop{
 font-size: 12px;
 }
+
+.table-shopping-orders .prd-prop{
+  font-size: 12px;
+  }
 
 
 
@@ -2022,13 +2032,30 @@ font-size: 12px;
   border-right: 1px solid #e6e6e6;
 }
 
+.wrap-table-shopping-orders {
+  overflow: hidden;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+}
+
 .table-shopping-cart {
   border-collapse: collapse;
   width: 100%;
   min-width: 410px;
 }
 
+.table-shopping-orders {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 410px;
+}
+
 .table-shopping-cart tr {
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.table-shopping-orders tr {
   border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #e6e6e6;
 }
@@ -2040,7 +2067,18 @@ font-size: 12px;
   padding-left: 50px;
 }
 
+.table-shopping-orders .column-1 {
+  width: 133px; 
+  padding-left: 50px;
+}
+
 .table-shopping-cart .column-2 {
+  width:35%;
+  width: 220px;
+  font-size: 15px;
+}
+
+.table-shopping-orders .column-2 {
   width:35%;
   width: 220px;
   font-size: 15px;
@@ -2051,12 +2089,29 @@ font-size: 12px;
   font-size: 16px;
 }
 
+.table-shopping-orders .column-3 {
+  width: 120px;
+  font-size: 16px;
+}
+
 .table-shopping-cart .column-4 {
   width: 145px;
   text-align: right;
 }
 
+.table-shopping-orders .column-4 {
+  width: 145px;
+  text-align: center;
+}
+
 .table-shopping-cart .column-5 {
+  width: 172px;
+  padding-right: 50px;
+  text-align: right;
+  font-size: 16px;
+}
+
+.table-shopping-orders .column-5 {
   width: 172px;
   padding-right: 50px;
   text-align: right;
@@ -2073,11 +2128,23 @@ font-size: 12px;
   height: 185px;
 }
 
+.table-shopping-orders .table_row {
+  height: 185px;
+}
+
 .table-shopping-cart .table_row td {
   padding-bottom: 20px;
 }
 
+.table-shopping-orders .table_row td {
+  padding-bottom: 20px;
+}
+
 .table-shopping-cart .table_row td.column-1 {
+  padding-bottom: 30px;
+}
+
+.table-shopping-orders .table_row td.column-1 {
   padding-bottom: 30px;
 }
 
@@ -2091,7 +2158,23 @@ font-size: 12px;
   padding-bottom: 15px;
 }
 
+.table-shopping-orders .table_head th {
+  font-family: Poppins-Bold;
+  font-size: 13px;
+  color: #555;
+  text-transform: uppercase;
+  line-height: 1.6;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 .table-shopping-cart td {
+  font-family: Poppins-Regular;
+  color: #555;
+  line-height: 1.6;
+}
+
+.table-shopping-orders td {
   font-family: Poppins-Regular;
   color: #555;
   line-height: 1.6;
@@ -2120,7 +2203,17 @@ font-size: 12px;
     width:100%;
   }
 
+  .wrap-table-shopping-orders{
+    width:100%;
+  }
+
   .table-shopping-cart{
+    display: block;
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .table-shopping-orders{
     display: block;
     width: 100%;
     min-width: 100%;
@@ -2130,7 +2223,19 @@ font-size: 12px;
     display: inline-block;
   }
 
+  .table-shopping-orders td{
+    display: inline-block;
+  }
    .table-shopping-cart td.column-1 {
+    width: 37.5%;
+    padding-left: 4.68%;  
+    padding-top: 5.6%;
+    padding-right: 0px;
+    padding-bottom: 12px;
+    margin-right: 0%;
+  }
+
+  .table-shopping-orders td.column-1 {
     width: 37.5%;
     padding-left: 4.68%;  
     padding-top: 5.6%;
@@ -2147,13 +2252,34 @@ font-size: 12px;
     hyphens: auto;
     text-align:left;
   }
+
+  .table-shopping-orders td.column-2{ 
+    width: 37.5%;
+    font-size: 13px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    text-align:left;
+  }
+
   .table-shopping-cart td.column-3{
     width: 25%;
     padding-left: 3px;
     text-align: center;
   }
 
+  .table-shopping-orders td.column-3{
+    width: 25%;
+    padding-left: 3px;
+    text-align: center;
+  }
+
   .table-shopping-cart td.column-4{
+    width: 37.5%;
+    padding-left: 4.68%;
+  }
+
+  .table-shopping-orders td.column-4{
     width: 37.5%;
     padding-left: 4.68%;
   }
@@ -2166,11 +2292,25 @@ font-size: 12px;
     
   }
 
+  .table-shopping-orders td.column-5{
+    width: 37.5%;
+    padding-left: 2px;
+    padding-right: 0%;
+    text-align: center;
+    
+  }
+
   .table-shopping-cart td.column-6{
     width:25%;
     padding-right: 2px;
     
   } 
+
+  .table-shopping-orders td.column-6{
+    width:25%;
+    padding-right: 2px;
+    
+  }
 
   /* .del{
     position: relative;
@@ -2203,6 +2343,9 @@ font-size: 12px;
   display: inline-block;
 }
 
+.table-shopping-orders td{
+  display: inline-block;
+}
  
 
 }

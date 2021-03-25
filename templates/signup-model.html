@@ -1,12 +1,12 @@
 <!--signup modal -->
 <div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
-	<div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
-		<ul class="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger">
-			<li><a href="#0" data-signin="login" data-type="login">Sign in</a></li>
+	<div class="cd-signin-modal__container "> <!-- this is the container wrapper -->
+		<ul class="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger ">
+			<li><a href="#0" data-signin="login" data-type="login" id="signin-switch">Sign in</a></li>
 			<li><a href="#0" data-signin="signup" data-type="signup">New account</a></li>
 		</ul>
 
-		<div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
+		<div class="cd-signin-modal__block js-signin-modal-block " id="signin-block" data-type="login"> <!-- log in form -->
 			<form class="cd-signin-modal__form" name="signin-form">
 				<p class="cd-signin-modal__fieldset">
 					<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signin-email">E-mail</label>

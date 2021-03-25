@@ -78,3 +78,20 @@ def reset_password(email):
     except:
         return False
 
+#cart data
+def cart_buy(cart_data):
+    try:
+        no_of_items_ordered = cart_data['n_items']
+        total_cart_cost = cart_data['totalCost']
+        ordered_products = cart_data['products_ordered']
+        country = cart_data['country']
+        name = cart_data['name']
+        mobile_number = cart_data['mobile_num']
+        post_cose = cart_data['post_code']
+        address_1 = cart_data['address_1']
+        address_2 = cart_data['address_2']
+        landmark = cart_data['landmark']
+        city = cart_data['city']
+        state = cart_data['state']
+    except:
+        return False

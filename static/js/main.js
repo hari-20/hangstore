@@ -708,6 +708,45 @@ function cart_qty_change(e,itemId,isAdd){
     //     });
 
     //     });
+                //var cancelmodal = document.getElementById("myModalcancel");
+
+				// Get the button that opens the modal
+				//var cancelbtn = document.getElementById("myBtncancel");
+
+				// Get the <span> element that closes the modal
+				//var cancelspan = document.getElementsByClassName("cancelclose")[0];
+
+				// When the user clicks the button, open the modal 
+                $('#myBtncancel').click (function cancelButton(event){
+                    var cancelmodal = document.getElementById("myModalcancel");
+                    cancelmodal.style.visibility = "visible";
+                    // var cancelspan = document.getElementsByClassName("cancelclose")[0];
+                    // cancelspan.onclick = function() {
+                    //     cancelmodal.style.display = "none";
+                    // }
+                    window.onclick = function(event) {
+                        if (event.target == cancelmodal) {
+                            cancelmodal.style.visibility = "visible";
+                        }
+                        }
+                    
+                })
+				//  cancelbtn.onclick = function() {
+                //      cancelmodal.style.display = "block";
+				//  }
+
+				// When the user clicks on <span> (x), close the modal
+				//  cancelspan.onclick = function() {
+                //      cancelmodal.style.display = "none";
+			    //  }
+
+				// When the user clicks anywhere outside of the modal, close it
+				//  window.onclick = function(event) {
+				//  if (event.target == cancelmodal) {
+				//  	cancelmodal.style.display = "none";
+				//  }
+				//  }
+
     function signedinCheck() {
 
         let userState = localStorage.getItem('userState');
@@ -730,13 +769,46 @@ function cart_qty_change(e,itemId,isAdd){
     }
     
     $('#cart-form').submit (function userStatecheck(event){
-        event.preventDefault();
+        
         let userStatecheck = localStorage.getItem('userState');
-        window.alert('sucess');
-        if(userStatecheck){
+        let country = document.forms["checkout-form"]["country"].value;
+        let fullname = document.forms["checkout-form"]["fullname"].value;
+        let mobilenumber = document.forms["checkout-form"]["mob-number"].value;
+        let postcode = document.forms["checkout-form"]["postcode"].value;
+        let address1 = document.forms["checkout-form"]["address1"].value;
+        let address2 = document.forms["checkout-form"]["address2"].value;
+        let landmark = document.forms["checkout-form"]["landmark"].value;
+        let city = document.forms["checkout-form"]["city"].value;
+        let state = document.forms["checkout-form"]["state"].value;
+        let cartnumbers = localStorage.getItem('cartNumbers');
+        let totalCost = localStorage.getItem('totalCost');
+        let products = localStorage.getItem('productsInCart');
+        
+        
+        event.preventDefault();
+        if(userStatecheck==null){
             
-            console.log("check");
-        //swal(nameProduct, "is added to cart !", "success");
+            //window.alert('failed');
+           // console.log("check failed");
+            $('.js-signin-modal') .addClass('cd-signin-modal--is-visible');
+            $('#signin-block') .addClass('cd-signin-modal__block--is-selected');
+            $('#signin-switch') .addClass('cd-selected');
+    }else{
+        let post_url = "/chechout";
+        $.ajax({
+            url: post_url,
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({ n_items:cartnumbers, totalCost:totalCost, products_ordered:products ,country:country, name:fullname, mobile_num:mobilenumber, post_code: postcode, address_1:address1, address_2:address2, landmark:landmark, city:city, state:state}),
+                success: function(response) {
+                    let resp = JSON.parse(JSON.stringify(response));
+                    if(resp.result == "errorder"){ 
+                        
+                        
+                    }
+            }
+        })
     }
     });
 

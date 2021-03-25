@@ -28,6 +28,16 @@ def about_page():
 def contact_page():
     return render_template('contact.html')
 
+#checkout cart fuctionality
+@app.route("/chechout", methods=['POST'])
+def cart_checkout():
+    if request.method == "POST":
+        try:
+            cart_data = request.get_json()
+            cart_buy(cart_data)
+        except:
+            return jsonify({"result":"errorder"})
+
 # firebase backend API    
 @app.route("/usersignup", methods=['POST'])
 def user_signup():

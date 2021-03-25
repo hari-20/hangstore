@@ -22,6 +22,12 @@
 	<link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+<link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/vendor/MagnificPopup/magnific-popup.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
@@ -55,7 +61,7 @@
 							Help & FAQs
 						</a>
 	
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="#" class="flex-c-m trans-04 p-lr-25 user-name">
 							My Account
 						</a>
 					</div>
@@ -149,12 +155,13 @@
 			<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
-						Free shipping for standard order over $100
+						Free shipping for standard order over Rs. 1000
 					</div>
 				</li>
-
+	
 				<li>
 					<div class="right-top-bar flex-w h-full">
+	
 						<a href="#" class="flex-c-m trans-04 p-lr-10 js-signin-modal-trigger signin-out" data-signin="login" data-toggle="modal" data-target="">
 							Sign In
 						</a>
@@ -163,9 +170,10 @@
 							Help & FAQs
 						</a>
 	
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<a href="#" class="flex-c-m p-lr-10 trans-04 user-name">
 							My Account
 						</a>
+	
 					</div>
 				</li>
 			</ul>
@@ -328,7 +336,7 @@
 				<div class="col-lg-20 col-xl-20 m-lr-20 m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-orders">
-							<table class="table-shopping-orders "  id="table-header">
+							<table class="table-shopping-orders"  id="table-header">
 					
 								<tr class="table_head table">
 									<th class="column-1">Product</th>
@@ -336,18 +344,21 @@
 									<th class="column-3">Price</th>
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
-									<th class="column-2">Ship To</th>
-									<th class="column-4">Order Status</th>
-									<th class="column-6"></th>
+									<th class="column-6">Ship To</th>
+									<th class="column-7">Order Status</th>
+									<!-- <th class="column-8"></th>
+									<th class="column-9"></th> -->
 									
 								</tr>
+							</table>
+							<table  class="table-shopping-orders">
 								<tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1 product">
 											<img src="../static/images/HGWCS001.jpg" alt="IMG">
 										</div>
 									</td>
-									<td class="column-2"> <div class="prd-name">White T-shirt</div>  <div class="prd-prop">size: S | colour: white </div></td>
+									<td class="column-2"> <div class="prd-prop">order id : 112005 </div> <div class="prd-name">White T-shirt</div>  <div class="prd-prop">size: S | colour: white </div></td>
 									<td class="column-3">&#8377; 18</td>
 									 
 									<td class="column-4">
@@ -358,23 +369,61 @@
 										<div name='product-sum' class='prd-sum'> &#8377; 150</div>  
 				
 									</td>
-									<td class="column-2">  <div class="prd-prop">Ranganaatha puram 1st street kongu main road Tiruppur-641607</div> <div class="prd-prop">Name : harihar</div> <div class="prd-prop">ph.no : 9600896275 </div></td>
-									<td class="column-4" >
-										Picked Up
+									<td class="column-6">  <div class="prd-prop">Ranganaatha puram 1st street kongu main road Tiruppur-641607</div> <div class="prd-prop">Name : harihar</div> <div class="prd-prop">ph.no : 9600896275 </div></td>
+									<td class="column-7" id="order-status">
+										<ul>
+											
+										<li><div><i class="icon-sts zmdi zmdi-check-circle"></i> Ordered &nbsp; </div> </li>
+										<!-- <div class="icon-sts"></div> -->
+										<li><div><i class="icon-sts completed zmdi zmdi-check-circle"></i> Shipped &nbsp; </div></li>
+										<!-- <div class="icon-sts"></div> -->
+										<li><div><i class="icon-sts zmdi zmdi-check-circle"></i> Delivered</div> <!--<div style="padding-left: 10%; padding-top: 2%;">(12.01.2021)</div>--></li>
+										</ul>
 									</td>
-									<td class="column-4" >
-										<div>
-											<button class="flex-c-m stext-100 cl0 size-100 bg1 bor1 hov-btn1 p-lr-15 trans-04 m-t-50 ">
-												Cancel Order
-											</button>
-											<button class="flex-c-m stext-100 cl0 size-100 bg1 bor1 hov-btn1 p-lr-15 trans-04 m-t-50 ">
-												Return Order
-											</button>
-										</div>  
-									</td>
-	
 								</tr>
+								
+								<table>
+									<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-60 p-lr-15-sm" >
+			
+										<div class="flex-c-m stext-101 cl2 size-100 bg8 bor13 hov-btn3 p-lr-15 pointer trans-04 m-tb-10"  id="myBtncancel">
+											  CANCEL ORDER <div class="tooltip100" id="hide-mobile" data-tooltip="you can only cancel the order before shipped">
+												&nbsp; <i class="zmdi zmdi-help-outline"></i>
+															</div>
+										</div>
+										
+								
+										<div class="flex-c-m stext-101 cl2 size-100 bg8 bor13 hov-btn3 p-lr-15 pointer trans-04 m-tb-10">
+											 REFUND ORDER <!-- <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-15">
+															<i class="zmdi zmdi-help-outline"></i>
+															</div> -->
+															<div class="tooltip100" id="hide-mobile" data-tooltip="3 days return policy">
+																&nbsp; <i class="zmdi zmdi-help-outline"></i>
+																			</div>
+										</div>
+											
+									</div>
+
+								</table>
+								
 							</table>
+
+							<!-- <tr class="table_row">
+								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-60 p-lr-15-sm" >
+		
+									<div class="flex-c-m stext-101 cl2 size-100 bg8 bor13 hov-btn3 p-lr-15 pointer trans-04 m-tb-10">
+										 CANCEL ORDER <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-15">
+														<i class="zmdi zmdi-help-outline"></i>
+														</div>
+									</div>
+										
+									<div class="flex-c-m stext-101 cl2 size-100 bg8 bor13 hov-btn3 p-lr-15 pointer trans-04 m-tb-10">
+										RETURN ORDER <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-15">
+											<i class="zmdi zmdi-help-outline"></i>
+											</div>
+									</div>
+										
+								</div>
+							</tr> -->
 						</div>
 					</div>
 				</div>
@@ -800,7 +849,32 @@
 		</div>
 	</section>	
 	 -->
+	
+	 
+<!-- Trigger/Open The Modal -->
+<!-- <button id="myBtn">Open Modal</button> -->
+
+<!-- The Modal -->
+<div  class="myModalcancel">
+
+  <!-- Modal content -->
+  <div class="cancel-modal-content">
+    <!-- <span class="cancelclose">&times;</span> -->
+    <p>Are You Sure Want To Cancel The Order</p>
+	<div class="cancel-modalfooter">
+	<div class="swal-button-container">
+
+		<button class="cancel-swal-button">Yes</button>
+		<button class="cancel-swal-button">NO</button>
+	
 		
+	
+	  </div>
+	</div>
+  </div>
+
+</div>
+
 <!--signup modal -->
 {% include "signup-model.html" %}
 <!--signup modal --> 
@@ -879,7 +953,7 @@
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Any questions? Let us know in store at 3rd floor, 3/22 First St, Tiruppur, IN 641607 or call us on +91 0421 422 8089
 					</p>
 
 					<div class="p-t-27">
@@ -918,7 +992,7 @@
 			</div>
 
 			<div class="p-t-40">
-				<div class="flex-c-m flex-w p-b-18">
+				<!-- <div class="flex-c-m flex-w p-b-18">
 					<a href="#" class="m-all-1">
 						<img src="../static/images/icons/icon-pay-01.png" alt="ICON-PAY">
 					</a>
@@ -938,11 +1012,11 @@
 					<a href="#" class="m-all-1">
 						<img src="../static/images/icons/icon-pay-05.png" alt="ICON-PAY">
 					</a>
-				</div>
+				</div> -->
 
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+					Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="/">hang outfits</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>
@@ -967,6 +1041,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<script src="../static/vendor/select2/select2.min.js"></script>
+	<script src="../static/vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({

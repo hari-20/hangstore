@@ -717,21 +717,49 @@ function cart_qty_change(e,itemId,isAdd){
 				//var cancelspan = document.getElementsByClassName("cancelclose")[0];
 
 				// When the user clicks the button, open the modal 
-                $('#myBtncancel').click (function cancelButton(event){
-                    var cancelmodal = document.getElementById("myModalcancel");
-                    cancelmodal.style.visibility = "visible";
+                // $('#myBtncancel').click (function cancelButton(event){
+                //     console.log('working');
+                //     var cancelmodal = document.getElementById("myModalcancel");
+                //     cancelmodal.style.visibility = "visible";
                     // var cancelspan = document.getElementsByClassName("cancelclose")[0];
                     // cancelspan.onclick = function() {
                     //     cancelmodal.style.display = "none";
                     // }
-                    window.onclick = function(event) {
-                        if (event.target == cancelmodal) {
-                            cancelmodal.style.visibility = "visible";
-                        }
-                        }
+                //     window.onclick = function(event) {
+                //         if (event.target == cancelmodal) {
+                //             cancelmodal.style.visibility = "visible";
+                //         }
+                //         }
                     
-                })
-				//  cancelbtn.onclick = function() {
+                // })
+
+                //working of onclick cancel button
+
+
+            let cancel = document.querySelectorAll('#myBtncancel');
+
+            for (let i=0; i < cancel.length; i++){
+                
+                        cancel[i].addEventListener('click', () => { 
+                            
+                        $('.myModalcancel').addClass('cancel-modal-show');
+                    
+                        })
+                    var cancelmodal = document.getElementById('working');
+                    window.onclick = function(event) {
+                        
+                        if (event.target == cancelmodal) {
+                            $('.myModalcancel').removeClass('cancel-modal-show');
+                            
+                        }
+                        }
+
+                        $('#btncancelno').click (function (){
+                            $('.myModalcancel').removeClass('cancel-modal-show');
+                        })
+            }
+                    
+                //  cancelbtn.onclick = function() {
                 //      cancelmodal.style.display = "block";
 				//  }
 
@@ -794,7 +822,7 @@ function cart_qty_change(e,itemId,isAdd){
             $('#signin-block') .addClass('cd-signin-modal__block--is-selected');
             $('#signin-switch') .addClass('cd-selected');
     }else{
-        let post_url = "/chechout";
+        let post_url = "/checkout";
         $.ajax({
             url: post_url,
                 contentType: 'application/json',

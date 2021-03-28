@@ -29,7 +29,7 @@ def contact_page():
     return render_template('contact.html')
 
 #checkout cart fuctionality
-@app.route("/chechout", methods=['POST'])
+@app.route("/checkout", methods=['POST'])
 def cart_checkout():
     if request.method == "POST":
         try:

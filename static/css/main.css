@@ -1688,7 +1688,7 @@ button.mfp-close {
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 9000; /* Sit on top */
-  padding-top: 4%; /* Location of the box */
+  padding-top: 1.8%; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -2173,8 +2173,8 @@ font-size: 12px;
 
 .wrap-table-shopping-orders {
   overflow: hidden;
-  border-left: 1px solid #e6e6e6;
-  border-right: 1px solid #e6e6e6;
+  /* border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6; */
 }
 
 .table-shopping-cart {
@@ -2197,6 +2197,8 @@ font-size: 12px;
 .table-shopping-orders tr {
   border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #e6e6e6;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
 }
 
 
@@ -2359,6 +2361,16 @@ font-size: 12px;
 
 @media only screen and (max-device-width: 600px) {
 
+  .cancel-modal-content {
+    /* font-size: 15px; */
+    width: 80%;
+    padding-top: 6%;
+    
+  }
+  .myModalcancel{
+    /* padding-right: 5%; */
+    padding-top: 50%;
+  }
   #table-header{
     display: none;
   } 
@@ -2366,9 +2378,9 @@ font-size: 12px;
   #hide-mobile{
     display: none;
   } 
-  .cancel-modal {
+  /* .cancel-modal {
     padding-top: 25%;
-  }
+  } */
   /* .table-head, .column-6, .column-5, .column-4{
     display: none;
   } */

@@ -791,11 +791,48 @@ function cart_qty_change(e,itemId,isAdd){
             $('#signout-btn').attr('disabled', false);
             $('#signout-btn').css('cursor','pointer');
 
-        }
-      
+        }      
 
     }
     
+    $('#contact-form').submit (function contactform(e){
+        let contactEmail = document.forms["contactform"]["email"].value;
+        let contactMessage = document.forms["contactform"]["msg"].value;
+        let post_url = "/contactmsgform";
+        let userName = localStorage.getItem('userState');
+        //console.log(userStatecheck);
+        $.ajax({
+            url: post_url,
+                contentType: 'application/json',
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify({ contact_Email : contactEmail, contact_Message : contactMessage, contact_name : userName}),
+                success: function(response) {
+                    let resp = JSON.parse(JSON.stringify(response));
+                    if(resp.result == "message sent"){ 
+                        var x = document.getElementById("snackbar");
+                        x.className = "show";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                        document.forms["contactform"]["email"].value = "";
+                        document.forms["contactform"]["msg"].value = "";
+                    }
+                    else if(resp.result == "message not sent"){
+                        var x = document.getElementById("snackbar").innerHTML +=  "Message Not Sent..";
+                        x.className = "show";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                    }
+                    else if(resp.result == "errcontactmessage"){
+                        var x = document.getElementById("snackbar").innerHTML +=  "Something Went Wrong..";
+                        x.className = "show";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                    }
+            }
+        })
+        e.preventDefault();
+    })
+
+    //showing pop up on message sent on contact page
+
     $('#cart-form').submit (function userStatecheck(event){
         
         let userStatecheck = localStorage.getItem('userState');

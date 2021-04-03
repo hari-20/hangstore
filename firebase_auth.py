@@ -81,7 +81,7 @@ def reset_password(email):
 #cart data
 def cart_buy(cart_data):
     try:
-        no_of_items_ordered = cart_data['n_items']
+        no_of_items_ordered = cart_data['n_items'] 
         total_cart_cost = cart_data['totalCost']
         ordered_products = cart_data['products_ordered']
         country = cart_data['country']
@@ -93,5 +93,19 @@ def cart_buy(cart_data):
         landmark = cart_data['landmark']
         city = cart_data['city']
         state = cart_data['state']
+    except:
+        return False
+
+
+#contact message
+def contact_msg(contact_message):
+    try:
+        message_email = contact_message['contact_Email']
+        reason_message = contact_message['contact_Message']
+        #user_name_customer = contact_message['contact_name']
+        msgdata = {'customer email':message_email, 'customer message':reason_message}
+        results = db.child("customer messages").push(msgdata) 
+
+        return True
     except:
         return False

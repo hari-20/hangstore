@@ -38,6 +38,21 @@ def cart_checkout():
         except:
             return jsonify({"result":"errorder"})
 
+#user contact message
+@app.route("/contactmsgform", methods=['POST'])
+def user_contactmessage():
+    if request.method == "POST":
+        try:
+            message = request.get_json()
+            message_sent = contact_msg(message)
+
+            if(message_sent == True):
+                return jsonify({"result":"message sent"})
+            else:
+                return jsonify({"result":"message not sent"})
+        except:
+            return jsonify({"result":"errcontactmessage"})
+
 # firebase backend API    
 @app.route("/usersignup", methods=['POST'])
 def user_signup():

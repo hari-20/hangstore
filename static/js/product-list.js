@@ -20,6 +20,28 @@ const products = [
         colour: 'half-white',
         description: "Women's Casual shirt",
         category: 'women'
+    },
+    {
+        name : 'Womens Cropped Shirt',
+        id : 'HGWCS005',
+        tag : 'WomensCropTshirt',
+        price : 150,
+        stock : 10,
+        size : ['S','M','L','XL'],
+        colour: 'Black',
+        description: "Women's Casual Crop shirt",
+        category: 'women'
+    },
+    {
+        name : 'Mens Casual Shirt',
+        id : 'HGWCS006',
+        tag : 'MensCasualshirt',
+        price : 450,
+        stock : 10,
+        size : ['S','M','L','XL'],
+        colour: 'Black',
+        description: "Women's Casual Crop shirt",
+        category: 'men'
     }
     ]
     

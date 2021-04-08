@@ -1,4 +1,4 @@
-from firebase import Firebase
+import pyrebase
 
 firebaseConfig = {
     "apiKey": "AIzaSyArdZQf-7SrOfC3mCIVLhOcS8vwu40KHTc",
@@ -11,7 +11,8 @@ firebaseConfig = {
     "measurementId": "G-JZJJ7SQ2C9"
 }
 
-firebase = Firebase(firebaseConfig)
+firebase = pyrebase.initialize_app(firebaseConfig)
+
 auth = firebase.auth()  #Firebase authentication
 db = firebase.database()   #Firebase database
 
@@ -81,6 +82,7 @@ def reset_password(email):
 #cart data
 def cart_buy(cart_data):
     try:
+        email = cart_data['email']
         no_of_items_ordered = cart_data['n_items'] 
         total_cart_cost = cart_data['totalCost']
         ordered_products = cart_data['products_ordered']
@@ -93,9 +95,20 @@ def cart_buy(cart_data):
         landmark = cart_data['landmark']
         city = cart_data['city']
         state = cart_data['state']
+
+        
+            
     except:
         return False
 
+
+def generateOrderID():
+    last_record = db.child("customer messages").order_by_key().limit_to_last(1).get().val()
+    return last_record.keys()
+
+
+ans = generateOrderID()
+print("".join(ans))
 
 #contact message
 def contact_msg(contact_message):

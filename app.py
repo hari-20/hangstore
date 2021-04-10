@@ -34,7 +34,11 @@ def cart_checkout():
     if request.method == "POST":
         try:
             cart_data = request.get_json()
-            cart_buy(cart_data)
+            checkout_res = cart_buy(cart_data)
+            if checkout_res:
+                return jsonify({"result":"success"})
+            else:
+                jsonify({"result":"error"})
         except:
             return jsonify({"result":"errorder"})
 

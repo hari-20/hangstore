@@ -1,4 +1,5 @@
 import pyrebase
+import datetime
 
 firebaseConfig = {
     "apiKey": "AIzaSyArdZQf-7SrOfC3mCIVLhOcS8vwu40KHTc",
@@ -79,36 +80,61 @@ def reset_password(email):
     except:
         return False
 
+def generateOrderID():
+    try:
+        last_record = db.child("customer orders").order_by_key().limit_to_last(1).get().val()
+        print("Hello")
+        last_id = "".join(last_record.keys())
+        order_num  = int(last_id[10:])
+        order_num += 1
+
+        date = datetime.datetime.now()
+        date_format = date.strftime("%Y%m%d") #yyyymmdd
+        order_id = "OD"+ date_format + str(order_num)
+        return order_id
+
+    except:
+        print("Hello exception")
+        date = datetime.datetime.now()
+        date_format = date.strftime("%Y%m%d") #yyyymmdd
+        order_id = "OD"+ date_format + "001"
+        return order_id
+
+
 #cart data
 def cart_buy(cart_data):
     try:
-        email = cart_data['email']
-        no_of_items_ordered = cart_data['n_items'] 
-        total_cart_cost = cart_data['totalCost']
+        # email = cart_data['email']
+        # no_of_items_ordered = cart_data['n_items'] 
+        # total_cart_cost = cart_data['totalCost']
+        # ordered_products = cart_data['products_ordered']
+        # country = cart_data['country']
+        # name = cart_data['name']
+        # mobile_number = cart_data['mobile_num']
+        # post_cose = cart_data['post_code']
+        # address_1 = cart_data['address_1']
+        # address_2 = cart_data['address_2']
+        # landmark = cart_data['landmark']
+        # city = cart_data['city']
+        # state = cart_data['state']
         ordered_products = cart_data['products_ordered']
-        country = cart_data['country']
-        name = cart_data['name']
-        mobile_number = cart_data['mobile_num']
-        post_cose = cart_data['post_code']
-        address_1 = cart_data['address_1']
-        address_2 = cart_data['address_2']
-        landmark = cart_data['landmark']
-        city = cart_data['city']
-        state = cart_data['state']
 
-        
+        for prd_id in ordered_products.keys():
+            prd_order = cart_data.copy()
+            prd_order['product_desc'] = ordered_products[prd_id]
+            prd_order.pop('products_ordered') 
+
+            order_id = generateOrderID()
+            results = db.child("customer orders").child(order_id).set(prd_order) #Storing user ordered cart data to firebase realtime database
+            
+        return True
             
     except:
         return False
 
 
-def generateOrderID():
-    last_record = db.child("customer messages").order_by_key().limit_to_last(1).get().val()
-    return last_record.keys()
 
 
-ans = generateOrderID()
-print("".join(ans))
 
 #contact message
 def contact_msg(contact_message):
